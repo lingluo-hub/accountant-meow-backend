@@ -16,7 +16,7 @@
 ### 环境准备
 
 - JDK 11 (可前往 https://www.azul.com/downloads/?version=java-11-lts&package=jdk 下载对应操作系统的 Java JDK, 推荐版本 >=11)
-- Maven (可前往 https://maven.apache.org/ 获取最新版)
+- Maven (**可选** 可前往 https://maven.apache.org/ 获取最新版)
 - Docker (**可选** 可前往 https://www.docker.com/get-started/ 获取 对应操作系统的 Docker)
 
 ### 环境变量说明
@@ -32,11 +32,17 @@
 
 ### 构建
 
+1. 本地环境 Maven 构建
 ```shell
 git clone https://github.com/lingluo-hub/accountant-meow-backend.git
 cd accountant-meow-backend
 mvn -B package --file pom.xml -DskipTests
 ```
+
+2. 使用 mvnw 构建
+  ```shell
+  ./mvnw -B package --file pom.xml -DskipTests
+  ```
 
 在 `target` 下可看到 `.jar` 的文件生成。
 
@@ -51,9 +57,9 @@ mvn -B package --file pom.xml -DskipTests
                   --spring.datasource.url=${DB_URL}
   ```
 
-2. Docker 运行
-  新建文件 `.env` (环境变量配置文件), 填入一下内容:
-3. 
+3. Docker 运行
+   新建文件 `.env` (环境变量配置文件), 填入一下内容:
+
   ```
   USER_NAME=<Spring Boot Security 用户名>
   USER_PSWD=<Spring Boot Security 用户密码>
@@ -62,7 +68,7 @@ mvn -B package --file pom.xml -DskipTests
   DB_USER_PSWD=<PostgreSQL数据库用户密码>
   ```
 
-  然后运行:
+然后运行:
 
   ```shell
   docker run --env-file .env adaclosure/acmw-backend:latest
