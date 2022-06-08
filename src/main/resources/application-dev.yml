@@ -1,0 +1,27 @@
+server:
+  port: 8080
+
+spring:
+  security:
+    user:
+      name: ${USER_NAME}
+      password: ${USER_PSWD}
+  datasource:
+    username: ${DB_USER_NAME}
+    password: ${DB_USER_PSWD}
+    url: jdbc:postgresql://${DB_URL}:5432/accountant_meow?serverTimezone=PRC
+    driver-class-name: org.postgresql.Driver
+  flyway:
+    enabled: false
+    encoding: UTF-8
+    # 可以支持多个location, 用','隔开
+    locations: classpath:db/migration
+    # migrate是否校验
+    validate-on-migrate: true
+
+#整合MyBatis
+mybatis:
+  #  mapper.xml的目录
+  mapper-locations: classpath:mapper/*Mapper.xml
+  #  实体类的目录
+  type-aliases-package: com.meow.accountant.entity
