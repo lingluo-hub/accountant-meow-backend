@@ -79,4 +79,4 @@ mvn -B package --file pom.xml -DskipTests
 - PostgreSQL (本项目使用的后端数据库，开放端口 5432)
 - IntelliJ IDEA (颇受欢迎的 Java 开发 IDE)
 
-接口文档：https://github.com/lingluo-hub/accountant-meow-backend/wiki/%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3
+接口文档：[APIfox 在线文档](https://www.apifox.cn/apidoc/shared-ea01e1d8-803d-4828-988e-540fd0a572e9)
