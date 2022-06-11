@@ -38,3 +38,5 @@ build/
 ### prod ###
 src/main/resources/application-prod.yml
 .env
+/data/logs/accountant-meow-error.log
+/data/logs/accountant-meow-info.log

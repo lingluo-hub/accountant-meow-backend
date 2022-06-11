@@ -121,11 +121,10 @@ public class AccountController {
                                                    @RequestParam int kind, @RequestParam String userid) {
         Float result = accountService.getSumMoneyOneDay(year, month, day, kind, userid);
         logger.info("HTTP:GET getSumMoneyOneDay:{}", userid);
-        if (result == 0) {
+        if (result == null) {
             return ResponseResult.fail("");
-        } else {
-            return ResponseResult.success(result);
         }
+        return ResponseResult.success(result);
     }
 
     /**
@@ -140,7 +139,7 @@ public class AccountController {
     @RequestMapping("/getSumMoneyOneMonth")
     public ResponseResult<Float> getSumMoneyOneMonth(@RequestParam int year, @RequestParam int month, @RequestParam int kind, @RequestParam String userid) {
         Float result = accountService.getSumMoneyOneMonth(year, month, kind, userid);
-        if (result == 0) {
+        if (result == null) {
             logger.info("HTTP:GET getSumMoneyOneMonth:{}", userid);
             return ResponseResult.fail(DO_NOT_EXIST);
         }
@@ -230,17 +229,6 @@ public class AccountController {
     }
 
     /**
-     * 删除accounttb表格当中的所有数据
-     *
-     * @param userid 用户id
-     */
-    @DeleteMapping("/deleteAllAccount")
-    public void deleteAllAccount(@RequestParam String userid) {
-        accountService.deleteAllAccount(userid);
-        logger.warn("HTTP:DELETE deleteAllAccount:{}", userid);
-    }
-
-    /**
      * 查询指定年份和月份的收入或者支出每一种类型的总钱数
      *
      * @param year   记账年
@@ -322,7 +310,7 @@ public class AccountController {
     public ResponseResult<Float> getBudget(@RequestParam String userid) {
         Float result = accountService.getBudget(userid);
         logger.info("HTTP:GET getBudget:{}", userid);
-        if (result == 0) {
+        if (result == null) {
             return ResponseResult.fail(DO_NOT_EXIST);
         }
         return ResponseResult.success(result);

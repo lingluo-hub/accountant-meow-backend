@@ -98,7 +98,6 @@ public class AccountServiceImpl implements AccountDAO {
         }
         float sumMoneyOneMonth = getSumMoneyOneMonth(year, month, kind, userid);
         ArrayList<ChartItem> recoList = new ArrayList<>();
-        assert false;
         for (int i = 0; i < getResultFromAccounttb(year, month, kind, userid).size(); i++) {
             ChartItem chartItem = new ChartItem();
             chartItem.setSImageId(getResultFromAccounttb(year, month, kind, userid).get(i).getSImageId());
