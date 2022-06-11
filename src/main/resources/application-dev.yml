@@ -12,7 +12,7 @@ spring:
     url: jdbc:postgresql://${DB_URL}:5432/accountant_meow?serverTimezone=PRC
     driver-class-name: org.postgresql.Driver
   flyway:
-    enabled: false
+    enabled: true
     encoding: UTF-8
     # 可以支持多个location, 用','隔开
     locations: classpath:db/migration
