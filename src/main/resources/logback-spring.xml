@@ -1,6 +1,6 @@
 <configuration scan="true" scanPeriod="2 seconds">
     <!--定义日志文件的存储地址-->
-    <property name="LOG_PATH" value="/data/logs" />
+    <property name="LOG_PATH" value="data/logs" />
     <!-- 控制台输出 -->
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
