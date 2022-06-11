@@ -120,8 +120,8 @@ public class AccountController {
     public ResponseResult<Float> getSumMoneyOneDay(@RequestParam int year, @RequestParam int month, @RequestParam int day,
                                                    @RequestParam int kind, @RequestParam String userid) {
         Float result = accountService.getSumMoneyOneDay(year, month, day, kind, userid);
-        logger.info("HTTP:GET getSumMoneyOneDay");
-        if (result == null) {
+        logger.info("HTTP:GET getSumMoneyOneDay:{}", userid);
+        if (result == 0) {
             return ResponseResult.fail("");
         } else {
             return ResponseResult.success(result);
@@ -140,12 +140,11 @@ public class AccountController {
     @RequestMapping("/getSumMoneyOneMonth")
     public ResponseResult<Float> getSumMoneyOneMonth(@RequestParam int year, @RequestParam int month, @RequestParam int kind, @RequestParam String userid) {
         Float result = accountService.getSumMoneyOneMonth(year, month, kind, userid);
-        if (result == null) {
+        if (result == 0) {
             logger.info("HTTP:GET getSumMoneyOneMonth:{}", userid);
             return ResponseResult.fail(DO_NOT_EXIST);
-        } else {
-            return ResponseResult.success(result);
         }
+        return ResponseResult.success(result);
     }
 
     /**
@@ -323,11 +322,10 @@ public class AccountController {
     public ResponseResult<Float> getBudget(@RequestParam String userid) {
         Float result = accountService.getBudget(userid);
         logger.info("HTTP:GET getBudget:{}", userid);
-        if (result == null) {
+        if (result == 0) {
             return ResponseResult.fail(DO_NOT_EXIST);
-        } else {
-            return ResponseResult.success(result);
         }
+        return ResponseResult.success(result);
     }
 
     /**
