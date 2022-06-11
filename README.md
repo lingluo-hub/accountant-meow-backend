@@ -52,13 +52,14 @@ mvn -B package --file pom.xml -DskipTests
 
   ```shell
   cd target
-  java -jar *.jar --spring.security.user.name=${USER_NAME} --spring.security.user.password=${USER_PSWD} \
+  mv accountant-meow-backend-*.jar app.jar
+  java -jar app.jar --spring.security.user.name=${USER_NAME} --spring.security.user.password=${USER_PSWD} \
                   --spring.datasource.username=${DB_USER_NAME} --spring.datasource.password=${DB_USER_PSWD} \
                   --spring.datasource.url=${DB_URL}
   ```
 
-3. Docker 运行
-   新建文件 `.env` (环境变量配置文件), 填入一下内容:
+2. Docker 运行
+   新建文件 `.env` (环境变量配置文件), 填入以下内容:
 
   ```
   USER_NAME=<Spring Boot Security 用户名>
@@ -84,5 +85,15 @@ mvn -B package --file pom.xml -DskipTests
 - Docker (**可选** 可前往 https://www.docker.com/get-started/ 获取 对应操作系统的 Docker)
 - PostgreSQL (本项目使用的后端数据库，开放端口 5432)
 - IntelliJ IDEA (颇受欢迎的 Java 开发 IDE)
+
+### 数据库初始化
+
+**推荐** 开发环境下使用 docker 开启 PostgreSQL 数据库: 
+```shell
+docker run -v postgres-data:/var/lib/postgresql/data --name postgresql -e POSTGRES_PASSWORD=<数据库postgres用户密码> -p 5432:5432 -d postgres
+```
+创建数据库 `accountant_meow`, 本项目自带的 [flyway](https://flywaydb.org/) 会在启动时自动化此数据库。
+
+**注意** 如使用同一数据库环境，再次运行时请将文件 `src/main/resources/application-dev.yml` 中的 `flyway:enabled:` 中 `true` 改为 `false`
 
 接口文档：[APIfox 在线文档](https://www.apifox.cn/apidoc/shared-ea01e1d8-803d-4828-988e-540fd0a572e9)
