@@ -4,6 +4,7 @@
 <h2 align="center">记账喵后端</h2>
 <p align="center">Accountant Meow Backend</p>
 
+[![OSCS Status](https://www.oscs1024.com/platform/badge/lingluo-hub/accountant-meow-backend.svg?size=small)](https://www.oscs1024.com/project/lingluo-hub/accountant-meow-backend?ref=badge_small)
 [![Java CI with Maven](https://github.com/lingluo-hub/accountant-meow-backend/actions/workflows/maven.yml/badge.svg)](https://github.com/lingluo-hub/accountant-meow-backend/actions/workflows/maven.yml)
 ![Spring Version](https://img.shields.io/badge/spring%20boot-2.7.0-green)
 
