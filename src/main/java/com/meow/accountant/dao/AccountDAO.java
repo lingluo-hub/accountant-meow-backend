@@ -36,8 +36,6 @@ public interface AccountDAO {
 
     List<Integer> getYearListFromAccounttb(String userid);
 
-    void deleteAllAccount(String userid);
-
     List<ResultFromAccounttb> getResultFromAccounttb(int year, int month, int kind, String userid);
 
     List<ChartItem> getChartListFromAccounttb(int year, int month, int kind, String userid);

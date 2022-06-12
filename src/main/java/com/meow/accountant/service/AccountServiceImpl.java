@@ -76,11 +76,6 @@ public class AccountServiceImpl implements AccountDAO {
         return new ArrayList<>(accountDAO.getYearListFromAccounttb(userid));
     }
 
-    @Override
-    public void deleteAllAccount(String userid) {
-        accountDAO.deleteAllAccount(userid);
-    }
-
     /*
      * "select typename,sImageId,sum(money)as total from accounttb where year=? and month=? and kind=? group by typename " +
                 "order by total desc"

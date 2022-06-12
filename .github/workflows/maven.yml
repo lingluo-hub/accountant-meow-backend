@@ -51,11 +51,11 @@ jobs:
           DB_USER_NAME: postgres
           DB_USER_PSWD: postgres
         run: mvn test
-#      - name: Upload coverage reports to Codecov
-#        run: |
-#          curl -Os https://uploader.codecov.io/latest/linux/codecov
-#          chmod +x codecov
-#          ./codecov -t ${CODECOV_TOKEN}
+      - name: Upload coverage reports to Codecov
+        run: |
+          curl -Os https://uploader.codecov.io/latest/linux/codecov
+          chmod +x codecov
+          ./codecov -t ${CODECOV_TOKEN}
 
   build:
     runs-on: ubuntu-latest
