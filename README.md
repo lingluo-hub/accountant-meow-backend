@@ -54,9 +54,7 @@ mvn -B package --file pom.xml -DskipTests
   ```shell
   cd target
   mv accountant-meow-backend-*.jar app.jar
-  java -jar app.jar --spring.security.user.name=${USER_NAME} --spring.security.user.password=${USER_PSWD} \
-                  --spring.datasource.username=${DB_USER_NAME} --spring.datasource.password=${DB_USER_PSWD} \
-                  --spring.datasource.url=${DB_URL}
+  java -jar app.jar
   ```
 
 2. Docker 运行
@@ -91,9 +89,16 @@ mvn -B package --file pom.xml -DskipTests
 
 **推荐** 开发环境下使用 docker 开启 PostgreSQL 数据库: 
 ```shell
-docker run -v postgres-data:/var/lib/postgresql/data --name postgresql -e POSTGRES_PASSWORD=<数据库postgres用户密码> -p 5432:5432 -d postgres
+docker run \
+  -v postgres-data:/var/lib/postgresql/data \
+  --name postgresql \
+  -e POSTGRES_PASSWORD=<数据库postgres用户密码> \
+  -e POSTGRES_DB=accountant_meow \
+  -p 5432:5432 \
+  -d postgres
 ```
-创建数据库 `accountant_meow`, 本项目自带的 [flyway](https://flywaydb.org/) 会在启动时自动化此数据库。
+docker 启动时已完成创建数据库 `accountant_meow`, 本项目自带的 [flyway](https://flywaydb.org/) 会在启动时自动初始化此数据库、建表及插入示例数据。
+配置文件位置: `src/main/resources/db/migration/V1.0__Init_DB.sql` 和 `src/main/resources/db/migration/V1.1__Init_Data.sql`
 
 **注意** 如使用同一数据库环境，再次运行时请将文件 `src/main/resources/application-dev.yml` 中的 `flyway:enabled:` 中 `true` 改为 `false`
 
