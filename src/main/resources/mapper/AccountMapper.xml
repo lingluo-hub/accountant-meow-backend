@@ -35,11 +35,6 @@
         where id = #{id}
           and userid = #{userid}
     </delete>
-    <delete id="deleteAllAccount">
-        delete
-        from accounttb
-        where userid = #{userid}
-    </delete>
     <select id="getAccountByDate" resultType="com.meow.accountant.entity.Account">
         select *
         from accounttb
