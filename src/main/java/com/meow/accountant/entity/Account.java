@@ -12,9 +12,7 @@ import javax.persistence.Table;
 /**
  * @author lihangqi
  */
-@Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @SearchBean(tables = "accounttb", autoMapTo = "accounttb")
