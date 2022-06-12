@@ -148,7 +148,6 @@ class AccountControllerTest {
     void insertBudget() {
         ResponseResult<Float> result = accountController.insertBudget(USERID, 1500);
         Assertions.assertEquals("success", result.getMessage());
-        Assertions.assertEquals(1500, result.getData());
     }
 
     @Test
