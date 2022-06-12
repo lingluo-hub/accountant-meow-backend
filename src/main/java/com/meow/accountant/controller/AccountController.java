@@ -72,7 +72,7 @@ public class AccountController {
                                                        @RequestParam int kind, @RequestParam String userid) {
         accountService.insertAccount(typename, sImageId, beizhu, money, time, year, month, day, kind, userid);
         logger.info("HTTP:POST insertAccount: {}", userid);
-        return ResponseResult.success(accountService.getAccountByUserid(userid));
+        return ResponseResult.success();
     }
 
     /**
@@ -213,7 +213,7 @@ public class AccountController {
                                                                      @RequestParam int kind, @RequestParam String userid) {
         accountService.updateItemFromAccounttbById(id, typename, sImageId, beizhu, money, time, year, month, day, kind, userid);
         logger.info("HTTP:PUT updateItemFromAccounttbById:{}", userid);
-        return ResponseResult.success(accountService.getAccountByUserid(userid));
+        return ResponseResult.success();
     }
 
     /**
@@ -326,6 +326,6 @@ public class AccountController {
     public ResponseResult<Float> insertBudget(@RequestParam String userid, @RequestParam float budget) {
         logger.info("HTTP:POST insertBudget:{}", userid);
         accountService.insertBudget(userid, budget);
-        return ResponseResult.success(accountService.getBudget(userid));
+        return ResponseResult.success();
     }
 }
