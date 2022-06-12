@@ -72,7 +72,7 @@ mvn -B package --file pom.xml -DskipTests
 然后运行:
 
   ```shell
-  docker run --env-file .env adaclosure/acmw-backend:latest
+  docker run --env-file .env adaclosure/acmw-backend:1.4.1
   ```
 
 本应用端口 `8080`，无图形化界面。
