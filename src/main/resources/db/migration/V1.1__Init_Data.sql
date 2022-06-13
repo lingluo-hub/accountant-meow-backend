@@ -2,7 +2,7 @@ INSERT INTO budget (userid, budget) VALUES ('627875eda49a5d62769d415a', 1500);
 INSERT INTO budget (userid, budget) VALUES ('6267e484f9b3dc3313893ce0', 1500);
 INSERT INTO budget (userid, budget) VALUES ('626e437b9dc68d14cdb4e2f6', 3000);
 
-INSERT INTO public.accounttb (typename, simageid, beizhu, money, time, year, month, day, kind, timest, userid) VALUES ('医疗', 2131165429, '', 50, '2022年05月16日 00:00', 2022, 5, 16, 0, '2022-05-28 13:16:34.179342', '626e437b9dc68d14cdb4e2f6');
+INSERT INTO public.accounttb (typename, simageid, beizhu, money, time, year, month, day, kind, timest, userid) VALUES ('医疗', 2131165429, 'Take Care of yourself', 50, '2022年05月16日 00:00', 2022, 5, 16, 0, '2022-05-28 13:16:34.179342', '626e437b9dc68d14cdb4e2f6');
 INSERT INTO public.accounttb (typename, simageid, beizhu, money, time, year, month, day, kind, timest, userid) VALUES ('烟酒茶', 2131165427, '', 50, '2022年05月28日 21:16', 2022, 5, 28, 0, '2022-05-28 13:17:13.337376', '626e437b9dc68d14cdb4e2f6');
 INSERT INTO public.accounttb (typename, simageid, beizhu, money, time, year, month, day, kind, timest, userid) VALUES ('零食', 2131165406, '薯片', 8, '2022年05月30日 15:16', 2022, 5, 30, 0, '2022-05-30 07:17:02.134562', '626e437b9dc68d14cdb4e2f6');
 INSERT INTO public.accounttb (typename, simageid, beizhu, money, time, year, month, day, kind, timest, userid) VALUES ('交通', 2131165378, 'null', 25, '2022年05月10日 16:43', 2022, 5, 10, 0, '2022-05-10 16:43:57.861879', '627875eda49a5d62769d415a');

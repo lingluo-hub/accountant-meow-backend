@@ -144,4 +144,14 @@
         from accounttb
         where userid = #{userid}
     </select>
+    <select id="getAccountByID" resultType="com.meow.accountant.entity.Account">
+        select *
+        from accounttb
+        where id = #{id}
+    </select>
+    <select id="getBudgetRecordByUserid" resultType="com.meow.accountant.entity.Budget">
+        select *
+        from budget
+        where userid = #{id}
+    </select>
 </mapper>
