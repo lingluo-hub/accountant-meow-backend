@@ -7,8 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+@Getter
 @Setter
-@NoArgsConstructor
 @Entity
 @Table(name = "budget")
 public class Budget {
