@@ -15,6 +15,7 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
@@ -22,6 +23,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class AccountIndexTest {
 
     private MockMvc mvc;
+
+    private static final String USERID = "627875eda49a5d62769d415a";
 
     @MockBean
     private AccountServiceImpl accountService;
@@ -37,7 +40,14 @@ class AccountIndexTest {
     @Test
     void index() throws Exception {
         RequestBuilder request;
-        request = get("/accountant-meow/index/");
+        request = get("/accountant-meow/index")
+                .param("userid", USERID);
+        mvc.perform(request)
+                .andExpect(status().isOk());
+        request = get("/accountant-meow/index")
+                .param("userid", USERID)
+                .param("page","2")
+                .param("size","10");
         mvc.perform(request)
                 .andExpect(status().isOk());
     }
