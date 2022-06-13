@@ -2,11 +2,11 @@ package com.meow.accountant.entity.response;
 
 import com.meow.accountant.constants.ResponseStatus;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 
 import java.io.Serializable;
 
-@Data
+@Getter
 @Builder
 public class ResponseResult<T> {
 
