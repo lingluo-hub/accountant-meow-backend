@@ -13,6 +13,8 @@ import java.util.List;
 @Repository
 public interface AccountDAO {
 
+    List<Account> getAccountByID(int id);
+
     List<Account> getAccountByUserid(String userid);
 
     List<Account> getAccountByDate(int year, int month, int day, String userid);
@@ -51,6 +53,8 @@ public interface AccountDAO {
     List<Account> getAccountListByTypeFromAccounttb(String type, String userid);
 
     Float getBudget(String userid);
+
+    List<Budget> getBudgetRecordByUserid(String userid);
 
     void insertBudget(String userid, float budget);
 }

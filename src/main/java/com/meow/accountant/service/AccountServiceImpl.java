@@ -22,6 +22,11 @@ public class AccountServiceImpl implements AccountDAO {
     }
 
     @Override
+    public List<Account> getAccountByID(int id) {
+        return accountDAO.getAccountByID(id);
+    }
+
+    @Override
     public List<Account> getAccountByUserid(String userid) {
         return accountDAO.getAccountByUserid(userid);
     }
@@ -148,6 +153,11 @@ public class AccountServiceImpl implements AccountDAO {
     @Override
     public Float getBudget(String userid) {
         return accountDAO.getBudget(userid);
+    }
+
+    @Override
+    public List<Budget> getBudgetRecordByUserid(String userid) {
+        return accountDAO.getBudgetRecordByUserid(userid);
     }
 
     @Override

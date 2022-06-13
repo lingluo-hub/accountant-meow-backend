@@ -23,6 +23,23 @@ class AccountServiceImplTest {
     private static final int MONTH = 5;
     private static final int DAY = 10;
 
+
+    @Test
+    void getAccountByID() {
+        List<Account> result = accountService.getAccountByID(1);
+        Assertions.assertEquals(1, result.get(0).getId());
+        Assertions.assertEquals("医疗", result.get(0).getTypename());
+        Assertions.assertEquals(2131165429, result.get(0).getSImageId());
+        Assertions.assertEquals(50, result.get(0).getMoney());
+        Assertions.assertEquals("2022年05月16日 00:00", result.get(0).getTime());
+        Assertions.assertEquals(2022, result.get(0).getYear());
+        Assertions.assertEquals(5, result.get(0).getMonth());
+        Assertions.assertEquals(16, result.get(0).getDay());
+        Assertions.assertEquals(0, result.get(0).getKind());
+        Assertions.assertEquals("626e437b9dc68d14cdb4e2f6", result.get(0).getUserid());
+        Assertions.assertNotNull(result.get(0).getBeizhu());
+    }
+
     @Test
     void getAccountByUserid() {
         List<Account> result = accountService.getAccountByUserid(USERID);
@@ -83,6 +100,10 @@ class AccountServiceImplTest {
         List<ChartItem> resultnull = accountService.getChartListFromAccounttb(YEAR, MONTH, 0, "0");
         Assertions.assertFalse(result.isEmpty());
         Assertions.assertEquals(0, resultnull.size());
+        Assertions.assertNotEquals(0, result.get(0).getTotal());
+        Assertions.assertNotNull(result.get(0).getTypename());
+        Assertions.assertNotEquals(0, result.get(0).getSImageId());
+        Assertions.assertNotEquals(-1, result.get(0).getRatio());
     }
 
     @Test
@@ -101,6 +122,10 @@ class AccountServiceImplTest {
     void getSumMoneyOneDayInMonth() {
         List<BarCharItem> result = accountService.getSumMoneyOneDayInMonth(YEAR, MONTH, 0, USERID);
         Assertions.assertFalse(result.isEmpty());
+        Assertions.assertEquals(YEAR, result.get(0).getYear());
+        Assertions.assertEquals(MONTH, result.get(0).getMonth());
+        Assertions.assertNotEquals(0, result.get(0).getDay());
+        Assertions.assertNotEquals(0, result.get(0).getSummoney());
     }
 
     @Test
@@ -121,5 +146,14 @@ class AccountServiceImplTest {
         Float budgetnull = accountService.getBudget("0");
         Assertions.assertFalse(budget.isNaN());
         Assertions.assertNull(budgetnull);
+    }
+
+    @Test
+    void getBudgetRecordByUserid() {
+        accountService.insertBudget(USERID, 1600);
+        List<Budget> result = accountService.getBudgetRecordByUserid(USERID);
+        Assertions.assertEquals(USERID, result.get(0).getUserid());
+        Assertions.assertEquals(1600, result.get(0).getBudget());
+        Assertions.assertNotNull(result.get(0).getTimest());
     }
 }

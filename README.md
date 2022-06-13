@@ -101,6 +101,4 @@ docker run \
 docker 启动时已完成创建数据库 `accountant_meow`, 本项目自带的 [flyway](https://flywaydb.org/) 会在启动时自动初始化此数据库、建表及插入示例数据。
 配置文件位置: `src/main/resources/db/migration/V1.0__Init_DB.sql` 和 `src/main/resources/db/migration/V1.1__Init_Data.sql`
 
-**注意** 如使用同一数据库环境，再次运行时请将文件 `src/main/resources/application-dev.yml` 中的 `flyway:enabled:` 中 `true` 改为 `false`
-
 接口文档：[APIfox 在线文档](https://www.apifox.cn/apidoc/shared-ea01e1d8-803d-4828-988e-540fd0a572e9)
