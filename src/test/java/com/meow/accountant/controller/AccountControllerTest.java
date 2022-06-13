@@ -1,6 +1,6 @@
 package com.meow.accountant.controller;
 
-import com.ejlchina.searcher.MapSearcher;
+import com.ejlchina.searcher.SearchResult;
 import com.meow.accountant.AccountantMeowBackendApplication;
 import com.meow.accountant.entity.Account;
 import com.meow.accountant.entity.BarCharItem;
@@ -11,10 +11,18 @@ import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.RequestBuilder;
 
-import java.util.List;
+import javax.servlet.*;
+import javax.servlet.http.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.security.Principal;
+import java.util.*;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 /**
  * @author 凌洛
@@ -32,9 +40,6 @@ class AccountControllerTest {
 
     @Autowired
     private AccountController accountController;
-
-    @MockBean
-    private MapSearcher mapSearcher;
 
     /**
      * 测试按userid获取记录
@@ -55,6 +60,7 @@ class AccountControllerTest {
     void getAccountByDate() {
         ResponseResult<List<Account>> result = accountController.getAccountByDate(YEAR, MONTH, DAY, USERID);
         Assertions.assertEquals("success", result.getMessage());
+        Assertions.assertNotNull(result.getData());
     }
 
     /**
@@ -71,6 +77,7 @@ class AccountControllerTest {
     void getAccountByMonth() {
         ResponseResult<List<Account>> result = accountController.getAccountByMonth(YEAR, MONTH, USERID);
         Assertions.assertEquals("success", result.getMessage());
+        Assertions.assertNotNull(result.getData());
     }
 
     @Test
@@ -93,12 +100,14 @@ class AccountControllerTest {
     void getCountItemOneMonth() {
         ResponseResult<Integer> result = accountController.getCountItemOneMonth(YEAR, MONTH, 0, USERID);
         Assertions.assertEquals("success", result.getMessage());
+        Assertions.assertNotNull(result.getData());
     }
 
     @Test
     void getSumMoneyOneYear() {
         ResponseResult<Float> result = accountController.getSumMoneyOneYear(YEAR, 0, USERID);
         Assertions.assertEquals("success", result.getMessage());
+        Assertions.assertNotNull(result.getData());
     }
 
     @Test
@@ -112,36 +121,42 @@ class AccountControllerTest {
     void getYearListFromAccounttb() {
         ResponseResult<List<Integer>> result = accountController.getYearListFromAccounttb(USERID);
         Assertions.assertEquals("success", result.getMessage());
+        Assertions.assertNotNull(result.getData());
     }
 
     @Test
     void getChartListFromAccounttb() {
         ResponseResult<List<ChartItem>> result = accountController.getChartListFromAccounttb(YEAR, MONTH, 0, USERID);
         Assertions.assertEquals("success", result.getMessage());
+        Assertions.assertNotNull(result.getData());
     }
 
     @Test
     void getMaxMoneyOneDayInMonth() {
         ResponseResult<List<Float>> result = accountController.getMaxMoneyOneDayInMonth(YEAR, MONTH, 0, USERID);
         Assertions.assertEquals("success", result.getMessage());
+        Assertions.assertNotNull(result.getData());
     }
 
     @Test
     void getSumMoneyOneDayInMonth() {
         ResponseResult<List<BarCharItem>> result = accountController.getSumMoneyOneDayInMonth(YEAR, MONTH, 0, USERID);
         Assertions.assertEquals("success", result.getMessage());
+        Assertions.assertNotNull(result.getData());
     }
 
     @Test
     void getAccountListByRemarkFromAccounttb() {
         ResponseResult<List<Account>> result = accountController.getAccountListByRemarkFromAccounttb("地铁", USERID);
         Assertions.assertEquals("success", result.getMessage());
+        Assertions.assertNotNull(result.getData());
     }
 
     @Test
     void getAccountListByTypeFromAccounttb() {
         ResponseResult<List<Account>> result = accountController.getAccountListByTypeFromAccounttb("其他", USERID);
         Assertions.assertEquals("success", result.getMessage());
+        Assertions.assertNotNull(result.getData());
     }
 
     @Test
@@ -154,5 +169,6 @@ class AccountControllerTest {
     void deleteItemFromAccounttbById() {
         ResponseResult<String> result = accountController.deleteItemFromAccounttbById(8, USERID);
         Assertions.assertEquals("success", result.getMessage());
+        Assertions.assertNotNull(result.getData());
     }
 }
