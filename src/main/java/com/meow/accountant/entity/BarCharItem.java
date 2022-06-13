@@ -2,8 +2,8 @@ package com.meow.accountant.entity;
 
 import lombok.*;
 
+@Getter
 @Setter
-@NoArgsConstructor
 public class BarCharItem {
     private int year;
     private int month;

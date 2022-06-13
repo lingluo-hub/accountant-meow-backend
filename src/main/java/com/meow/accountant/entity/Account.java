@@ -12,8 +12,8 @@ import javax.persistence.Table;
 /**
  * @author lihangqi
  */
+@Getter
 @Setter
-@NoArgsConstructor
 @Entity
 @SearchBean(tables = "accounttb", autoMapTo = "accounttb")
 @Table(name = "accounttb")
