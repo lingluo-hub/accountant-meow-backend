@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 /**
  * @author lihangqi
@@ -17,7 +18,7 @@ import javax.persistence.Table;
 @Entity
 @SearchBean(tables = "accounttb", autoMapTo = "accounttb")
 @Table(name = "accounttb")
-public class Account {
+public class Account implements Serializable {
 
     @Id
     private int id;
