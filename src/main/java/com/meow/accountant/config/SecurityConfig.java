@@ -3,13 +3,13 @@ package com.meow.accountant.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
 @EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfig {
 
 
     @Bean
@@ -26,12 +26,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new CorsFilter(source);
     }
 
-    //同样在SecurityConfig配置中
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable() // 解决POST请求403错误
+    @Bean
+    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        return http.csrf().disable() // 解决POST请求403错误
                 .authorizeRequests()
-                .anyRequest().permitAll(); // 允许
+                .anyRequest().permitAll().and().build(); // 允许
     }
 
 }
