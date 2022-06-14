@@ -47,7 +47,6 @@ public class AccountController {
      * @param request http请求
      * @return List
      */
-    @Cacheable(value = "accountIndex")
     @GetMapping("/index")
     public SearchResult<Map<String, Object>> index(HttpServletRequest request) {
         return mapSearcher.search(Account.class, MapUtils.flat(request.getParameterMap()), new String[]{"money"}); //money字段统计
@@ -130,7 +129,7 @@ public class AccountController {
         Float result = accountService.getSumMoneyOneDay(year, month, day, kind, userid);
         logger.info("HTTP:GET getSumMoneyOneDay:{}", userid);
         if (result == null) {
-            return ResponseResult.fail("");
+            return ResponseResult.fail(DO_NOT_EXIST);
         }
         return ResponseResult.success(result);
     }
