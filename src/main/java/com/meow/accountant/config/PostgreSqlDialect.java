@@ -1,4 +1,4 @@
-package com.meow.accountant;
+package com.meow.accountant.config;
 
 import com.ejlchina.searcher.SqlWrapper;
 import com.ejlchina.searcher.dialect.Dialect;

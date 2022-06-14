@@ -2,13 +2,9 @@ package com.meow.accountant;
 
 import com.ejlchina.searcher.SqlWrapper;
 import com.ejlchina.searcher.param.Paging;
+import com.meow.accountant.config.PostgreSqlDialect;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class PostgreSqlDialectTest {
 

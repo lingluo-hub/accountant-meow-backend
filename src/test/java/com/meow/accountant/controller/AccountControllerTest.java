@@ -1,28 +1,19 @@
 package com.meow.accountant.controller;
 
-import com.ejlchina.searcher.SearchResult;
 import com.meow.accountant.AccountantMeowBackendApplication;
 import com.meow.accountant.entity.Account;
 import com.meow.accountant.entity.BarCharItem;
 import com.meow.accountant.entity.ChartItem;
 import com.meow.accountant.entity.response.ResponseResult;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.RequestBuilder;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.security.Principal;
-import java.util.*;
-
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import java.util.List;
 
 /**
  * @author 凌洛
@@ -40,6 +31,15 @@ class AccountControllerTest {
 
     @Autowired
     private AccountController accountController;
+
+    @Autowired
+    private CachingController cachingController;
+
+    @BeforeEach
+    void clearAllCaches() {
+        ResponseResult<Void> result = cachingController.clearAllCaches();
+        Assertions.assertEquals("success", result.getMessage());
+    }
 
     /**
      * 测试按userid获取记录
@@ -91,7 +91,7 @@ class AccountControllerTest {
     @Test
     void getSumMoneyOneMonth() {
         ResponseResult<Float> result = accountController.getSumMoneyOneMonth(YEAR, MONTH, 0, USERID);
-        ResponseResult<Float> resultnull = accountController.getSumMoneyOneMonth(YEAR, 1, 0, USERID);
+        ResponseResult<Float> resultnull = accountController.getSumMoneyOneMonth(2000, MONTH, 0, USERID);
         Assertions.assertEquals("success", result.getMessage());
         Assertions.assertNull(resultnull.getData());
     }

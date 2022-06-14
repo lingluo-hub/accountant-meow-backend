@@ -84,11 +84,12 @@ mvn -B package --file pom.xml -DskipTests
 - Maven (可前往 https://maven.apache.org/ 获取最新版)
 - Docker (**可选** 可前往 https://www.docker.com/get-started/ 获取 对应操作系统的 Docker)
 - PostgreSQL (本项目使用的后端数据库，开放端口 5432)
+- Redis (本项目使用的缓存数据库，开放端口 6379)
 - IntelliJ IDEA (颇受欢迎的 Java 开发 IDE)
 
 ### 数据库初始化
 
-**推荐** 开发环境下使用 docker 开启 PostgreSQL 数据库: 
+**推荐** 开发环境下使用 docker 开启 PostgreSQL 和 Redis 数据库: 
 ```shell
 docker run \
   -v postgres-data:/var/lib/postgresql/data \
@@ -98,6 +99,11 @@ docker run \
   -p 5432:5432 \
   -d postgres
 ```
+
+```shell
+docker run --name redis -p 6379:6379 -d redis redis-server --appendonly yes
+```
+
 docker 启动时已完成创建数据库 `accountant_meow`, 本项目自带的 [flyway](https://flywaydb.org/) 会在启动时自动初始化此数据库、建表及插入示例数据。
 配置文件位置: `src/main/resources/db/migration/V1.0__Init_DB.sql` 和 `src/main/resources/db/migration/V1.1__Init_Data.sql`
 

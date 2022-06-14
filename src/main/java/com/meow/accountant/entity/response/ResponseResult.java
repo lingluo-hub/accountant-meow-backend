@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 @Getter
 @Builder
-public class ResponseResult<T> {
+public class ResponseResult<T> implements Serializable {
 
     /**
      * response timestamp.
