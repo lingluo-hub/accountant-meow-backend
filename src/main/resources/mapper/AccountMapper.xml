@@ -7,12 +7,10 @@
         values (#{typename}, #{sImageId}, #{beizhu}, #{money}, #{time}, #{year}, #{month}, #{day}, #{kind}, #{userid})
     </insert>
     <insert id="insertBudget">
-        delete
-        from budget
-        where userid = #{userid}
-          and exists(select * from budget where userid = #{userid});
         insert into budget(userid, budget)
-        VALUES (#{userid}, #{budget})
+        values (#{userid}, #{budget})
+        on conflict(userid)
+            do update set (userid, budget) = (#{userid}, #{budget});
     </insert>
     <update id="updateItemFromAccounttbById">
         update accounttb
