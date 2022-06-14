@@ -44,8 +44,20 @@ class AccountIndexTest {
                 .andExpect(status().isOk());
         request = get("/accountant-meow/index")
                 .param("userid", USERID)
-                .param("page","2")
-                .param("size","10");
+                .param("page", "2")
+                .param("size", "10");
+        mvc.perform(request)
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void getMaxMoneyOneDayInMonth() throws Exception {
+        RequestBuilder request;
+        request = get("/accountant-meow/getMaxMoneyOneDayInMonth")
+                .param("userid", USERID)
+                .param("year", "2022")
+                .param("month", "5")
+                .param("kind", "0");
         mvc.perform(request)
                 .andExpect(status().isOk());
     }
