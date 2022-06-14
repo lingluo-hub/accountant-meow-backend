@@ -55,7 +55,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: '11'
-          distribution: 'temurin'
+          distribution: 'zulu'
           cache: maven
       - name: Test with Maven
         env:
