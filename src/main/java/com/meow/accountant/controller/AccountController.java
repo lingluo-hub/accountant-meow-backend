@@ -8,9 +8,10 @@ import com.meow.accountant.entity.BarCharItem;
 import com.meow.accountant.entity.ChartItem;
 import com.meow.accountant.entity.response.ResponseResult;
 import com.meow.accountant.service.AccountServiceImpl;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -46,6 +47,7 @@ public class AccountController {
      * @param request http请求
      * @return List
      */
+    @Cacheable(value = "accountIndex")
     @GetMapping("/index")
     public SearchResult<Map<String, Object>> index(HttpServletRequest request) {
         return mapSearcher.search(Account.class, MapUtils.flat(request.getParameterMap()), new String[]{"money"}); //money字段统计
@@ -65,6 +67,8 @@ public class AccountController {
      * @param kind     类型
      * @param userid   用户id
      */
+
+    @CachePut(value = "accountInsertAccount")
     @PostMapping("/insertAccount")
     public ResponseResult<List<Account>> insertAccount(@RequestParam String typename, @RequestParam int sImageId, @RequestParam String beizhu,
                                                        @RequestParam float money, @RequestParam String time,
@@ -84,6 +88,8 @@ public class AccountController {
      * @param userid 用户id
      * @return AccountList
      */
+
+    @Cacheable(value = "accountGetAccountByDate")
     @RequestMapping("/getAccountByDate")
     public ResponseResult<List<Account>> getAccountByDate(@RequestParam int year, @RequestParam int month, @RequestParam int day, @RequestParam String userid) {
         logger.info("HTTP:GET getAccountByDate:{}", userid);
@@ -98,6 +104,7 @@ public class AccountController {
      * @param userid 用户id
      * @return AccountList
      */
+    @Cacheable(value = "accountGetAccountByMonth")
     @RequestMapping("/getAccountByMonth")
     public ResponseResult<List<Account>> getAccountByMonth(@RequestParam int year, @RequestParam int month, @RequestParam String userid) {
         logger.info("HTTP:GET getAccountByMonth:{}", userid);
@@ -116,6 +123,7 @@ public class AccountController {
      * @param userid 用户id
      * @return Float
      */
+    @Cacheable(value = "accountGetSumMoneyOneDay")
     @RequestMapping("/getSumMoneyOneDay")
     public ResponseResult<Float> getSumMoneyOneDay(@RequestParam int year, @RequestParam int month, @RequestParam int day,
                                                    @RequestParam int kind, @RequestParam String userid) {
@@ -136,6 +144,7 @@ public class AccountController {
      * @param userid 用户id
      * @return Float
      */
+    @Cacheable(value = "accountGetSumMoneyOneMonth")
     @RequestMapping("/getSumMoneyOneMonth")
     public ResponseResult<Float> getSumMoneyOneMonth(@RequestParam int year, @RequestParam int month, @RequestParam int kind, @RequestParam String userid) {
         Float result = accountService.getSumMoneyOneMonth(year, month, kind, userid);
@@ -155,6 +164,7 @@ public class AccountController {
      * @param userid 用户id
      * @return int
      */
+    @Cacheable(value = "accountGetCountItemOneMonth", key = "#userid")
     @RequestMapping("/getCountItemOneMonth")
     public ResponseResult<Integer> getCountItemOneMonth(@RequestParam int year, @RequestParam int month, @RequestParam int kind, @RequestParam String userid) {
         logger.info("HTTP:GET getCountItemOneMonth:{}", userid);
@@ -169,6 +179,7 @@ public class AccountController {
      * @param userid 用户id
      * @return float
      */
+    @Cacheable(value = "accountGetSumMoneyOneYear", key = "#userid")
     @RequestMapping("/getSumMoneyOneYear")
     public ResponseResult<Float> getSumMoneyOneYear(@RequestParam int year, @RequestParam int kind, @RequestParam String userid) {
         logger.info("HTTP:GET getSumMoneyOneYear:{}", userid);
@@ -181,6 +192,7 @@ public class AccountController {
      * @param id     数据库表记录id
      * @param userid 用户id
      */
+    @CachePut(value = "accountDeleteItemFromAccounttbById", key = "#userid")
     @DeleteMapping("/deleteItemFromAccounttbById")
     public ResponseResult<String> deleteItemFromAccounttbById(@RequestParam int id, @RequestParam String userid) {
         accountService.deleteItemFromAccounttbById(id, userid);
@@ -205,6 +217,7 @@ public class AccountController {
      * @param kind     记账类型
      * @param userid   用户id
      */
+    @Cacheable(value = "accountUpdateItemFromAccounttbById", key = "#userid")
     @PutMapping("/updateItemFromAccounttbById")
     public ResponseResult<List<Account>> updateItemFromAccounttbById(@RequestParam int id, @RequestParam String typename, @RequestParam int sImageId,
                                                                      @RequestParam String beizhu, @RequestParam float money,
@@ -222,6 +235,7 @@ public class AccountController {
      * @param userid 用户id
      * @return List
      */
+    @Cacheable(value = "accountGetYearListFromAccounttb", key = "#userid")
     @GetMapping("/getYearListFromAccounttb")
     public ResponseResult<List<Integer>> getYearListFromAccounttb(@RequestParam String userid) {
         logger.info("HTTP:GET getYearListFromAccounttb:{}", userid);
@@ -237,6 +251,7 @@ public class AccountController {
      * @param userid 用户id
      * @return List
      */
+    @Cacheable(value = "accountGetChartListFromAccounttb", key = "#userid")
     @GetMapping("/getChartListFromAccounttb")
     public ResponseResult<List<ChartItem>> getChartListFromAccounttb(@RequestParam int year, @RequestParam int month, @RequestParam int kind, @RequestParam String userid) {
         List<ChartItem> result = accountService.getChartListFromAccounttb(year, month, kind, userid);
@@ -253,6 +268,7 @@ public class AccountController {
      * @param userid 用户id
      * @return List
      */
+    @Cacheable(value = "accountGetMaxMoneyOneDayInMonth", key = "#userid")
     @GetMapping("/getMaxMoneyOneDayInMonth")
     public ResponseResult<List<Float>> getMaxMoneyOneDayInMonth(@RequestParam int year, @RequestParam int month, @RequestParam int kind, @RequestParam String userid) {
         logger.info("HTTP:GET getMaxMoneyOneDayInMonth:{}", userid);
@@ -268,6 +284,7 @@ public class AccountController {
      * @param userid 用户id
      * @return List
      */
+    @Cacheable(value = "accountGetSumMoneyOneDayInMonth", key = "#userid")
     @GetMapping("/getSumMoneyOneDayInMonth")
     public ResponseResult<List<BarCharItem>> getSumMoneyOneDayInMonth(@RequestParam int year, @RequestParam int month, @RequestParam int kind, @RequestParam String userid) {
         logger.info("HTTP:GET getSumMoneyOneDayInMonth:{}", userid);
@@ -281,6 +298,7 @@ public class AccountController {
      * @param userid 用户id
      * @return List
      */
+    @Cacheable(value = "accountGetAccountListByRemarkFromAccounttb", key = "#userid")
     @GetMapping("/getAccountListByRemarkFromAccounttb")
     public ResponseResult<List<Account>> getAccountListByRemarkFromAccounttb(@RequestParam String beizhu, @RequestParam String userid) {
         logger.info("HTTP:GET getAccountListByRemarkFromAccounttb:{}", userid);
@@ -294,6 +312,7 @@ public class AccountController {
      * @param userid 用户id
      * @return List
      */
+    @Cacheable(value = "accountGetAccountListByTypeFromAccounttb", key = "#userid")
     @GetMapping("/getAccountListByTypeFromAccounttb")
     public ResponseResult<List<Account>> getAccountListByTypeFromAccounttb(@RequestParam String type, @RequestParam String userid) {
         logger.info("HTTP:GET getAccountListByTypeFromAccounttb:{}", userid);
@@ -306,6 +325,7 @@ public class AccountController {
      * @param userid 用户id
      * @return Float
      */
+    @Cacheable(value = "accountGetBudget", key = "#userid")
     @GetMapping("/getBudget")
     public ResponseResult<Float> getBudget(@RequestParam String userid) {
         Float result = accountService.getBudget(userid);
@@ -322,6 +342,7 @@ public class AccountController {
      * @param userid 用户id
      * @param budget 预算记录
      */
+    @Cacheable(value = "accountInsertBudget", key = "#userid")
     @PostMapping("/insertBudget")
     public ResponseResult<Float> insertBudget(@RequestParam String userid, @RequestParam float budget) {
         logger.info("HTTP:POST insertBudget:{}", userid);
