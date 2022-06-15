@@ -8,9 +8,11 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Transactional
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = AccountantMeowBackendApplication.class)
 class AccountServiceImplTest {
@@ -155,5 +157,25 @@ class AccountServiceImplTest {
         Assertions.assertEquals(USERID, result.get(0).getUserid());
         Assertions.assertEquals(1600, result.get(0).getBudget());
         Assertions.assertNotNull(result.get(0).getTimest());
+    }
+
+    @Test
+    void deleteItemFromAccounttbById() {
+        accountService.deleteItemFromAccounttbById(1, "626e437b9dc68d14cdb4e2f6");
+        Assertions.assertEquals("[]", accountService.getAccountByID(1).toString());
+    }
+
+    @Test
+    void insertAccount() {
+        accountService.insertAccount("交通", 2131165399,
+                "略略略", 25, "2022年05月23日 16:32", YEAR, MONTH, DAY, 0, USERID);
+        Assertions.assertEquals(USERID, accountService.getAccountByUserid(USERID).get(0).getUserid());
+    }
+
+    @Test
+    void updateItemFromAccounttbById() {
+        accountService.updateItemFromAccounttbById(16, "交通", 2131165399,
+                "地铁", 30, "2022年05月23日 16:32", YEAR, MONTH, DAY, 0, USERID);
+        Assertions.assertEquals(USERID, accountService.getAccountByUserid(USERID).get(0).getUserid());
     }
 }
