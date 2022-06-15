@@ -1,36 +1,52 @@
 package com.meow.accountant.controller;
 
+import com.ejlchina.searcher.MapSearcher;
 import com.meow.accountant.AccountantMeowBackendApplication;
-import com.meow.accountant.entity.Account;
-import com.meow.accountant.entity.BarCharItem;
-import com.meow.accountant.entity.ChartItem;
 import com.meow.accountant.entity.response.ResponseResult;
+import com.meow.accountant.service.AccountServiceImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-/**
- * @author 凌洛
- * @Description Controller层 Junit5 单元测试
- */
+@Transactional
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = AccountantMeowBackendApplication.class)
 class AccountControllerTest {
 
+    private MockMvc mockMvc;
+
     private static final String USERID = "627875eda49a5d62769d415a";
-    private static final float MONEY = 25;
-    private static final int YEAR = 2022;
-    private static final int MONTH = 5;
-    private static final int DAY = 10;
+    private static final String MONEY = "25";
+    private static final String YEAR = "2022";
+    private static final String MONTH = "5";
+    private static final String DAY = "10";
+    private static final String DO_NOT_EXIST = "Record does not exist!";
+
+    @MockBean
+    private AccountServiceImpl accountService;
+
+    @MockBean
+    private MapSearcher mapSearcher;
 
     @Autowired
     private AccountController accountController;
+
+    @BeforeEach
+    void setUp() {
+        mockMvc = MockMvcBuilders.standaloneSetup(new AccountController(accountService, mapSearcher)).build();
+    }
 
     @Autowired
     private CachingController cachingController;
@@ -41,134 +57,204 @@ class AccountControllerTest {
         Assertions.assertEquals("success", result.getMessage());
     }
 
-    /**
-     * 测试按userid获取记录
-     */
     @Test
-    void getBudget() {
-        ResponseResult<Float> result = accountController.getBudget(USERID);
-        ResponseResult<Float> resultnull = accountController.getBudget("0");
-        Assertions.assertEquals("success", result.getMessage());
-        Assertions.assertEquals(1500, result.getData());
-        Assertions.assertNull(resultnull.getData());
-    }
+    void index() throws Exception {
 
-    /**
-     * 测试按日期获取记录
-     */
-    @Test
-    void getAccountByDate() {
-        ResponseResult<List<Account>> result = accountController.getAccountByDate(YEAR, MONTH, DAY, USERID);
-        Assertions.assertEquals("success", result.getMessage());
-        Assertions.assertNotNull(result.getData());
-    }
+        mockMvc.perform(MockMvcRequestBuilders.get("/accountant-meow/index")
+                        .param("userid", USERID)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
 
-    /**
-     * 测试插入记录
-     */
-    @Test
-    void insertAccount() {
-        ResponseResult<List<Account>> result = accountController.insertAccount("交通", 2131165399,
-                "略略略", MONEY, "2022年05月23日 16:32", YEAR, MONTH, DAY, 0, USERID);
-        Assertions.assertEquals("success", result.getMessage());
+        mockMvc.perform(MockMvcRequestBuilders.get("/accountant-meow/index")
+                        .param("userid", USERID)
+                        .param("page", "2")
+                        .param("size", "10")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 
     @Test
-    void getAccountByMonth() {
-        ResponseResult<List<Account>> result = accountController.getAccountByMonth(YEAR, MONTH, USERID);
-        Assertions.assertEquals("success", result.getMessage());
-        Assertions.assertNotNull(result.getData());
+    void insertAccount() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post("/accountant-meow/insertAccount")
+                        .param("userid", USERID)
+                        .param("typename", "交通")
+                        .param("sImageId", "2131165399")
+                        .param("beizhu", "略略略")
+                        .param("money", MONEY)
+                        .param("time", "2022年05月23日 16:32")
+                        .param("year", YEAR)
+                        .param("month", MONTH)
+                        .param("day", DAY)
+                        .param("kind", "0")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 
     @Test
-    void getSumMoneyOneDay() {
-        ResponseResult<Float> result = accountController.getSumMoneyOneDay(YEAR, MONTH, DAY, 0, USERID);
-        ResponseResult<Float> resultnull = accountController.getSumMoneyOneDay(YEAR, MONTH, DAY, 0, "0");
-        Assertions.assertEquals("success", result.getMessage());
-        Assertions.assertNull(resultnull.getData());
+    void getAccountByDate() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/accountant-meow/getAccountByDate")
+                        .param("userid", USERID)
+                        .param("year", YEAR)
+                        .param("month", MONTH)
+                        .param("day", DAY)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 
     @Test
-    void getSumMoneyOneMonth() {
-        ResponseResult<Float> result = accountController.getSumMoneyOneMonth(YEAR, MONTH, 0, USERID);
-        ResponseResult<Float> resultnull = accountController.getSumMoneyOneMonth(2000, MONTH, 0, USERID);
-        Assertions.assertEquals("success", result.getMessage());
-        Assertions.assertNull(resultnull.getData());
+    void getAccountByMonth() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/accountant-meow/getAccountByMonth")
+                        .param("userid", USERID)
+                        .param("year", YEAR)
+                        .param("month", MONTH)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 
     @Test
-    void getCountItemOneMonth() {
-        ResponseResult<Integer> result = accountController.getCountItemOneMonth(YEAR, MONTH, 0, USERID);
-        Assertions.assertEquals("success", result.getMessage());
-        Assertions.assertNotNull(result.getData());
+    void getSumMoneyOneDay() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/accountant-meow/getSumMoneyOneDay")
+                        .param("userid", USERID)
+                        .param("year", YEAR)
+                        .param("month", MONTH)
+                        .param("day", DAY)
+                        .param("kind", "0")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 
     @Test
-    void getSumMoneyOneYear() {
-        ResponseResult<Float> result = accountController.getSumMoneyOneYear(YEAR, 0, USERID);
-        Assertions.assertEquals("success", result.getMessage());
-        Assertions.assertNotNull(result.getData());
+    void getSumMoneyOneMonth() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/accountant-meow/getSumMoneyOneMonth")
+                        .param("userid", USERID)
+                        .param("year", YEAR)
+                        .param("month", MONTH)
+                        .param("kind", "0")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 
     @Test
-    void updateItemFromAccounttbById() {
-        ResponseResult<List<Account>> result = accountController.updateItemFromAccounttbById(16, "交通", 2131165399,
-                "地铁", MONEY, "2022年05月23日 16:32", YEAR, MONTH, DAY, 0, USERID);
-        Assertions.assertEquals("success", result.getMessage());
+    void getCountItemOneMonth() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/accountant-meow/getCountItemOneMonth")
+                        .param("userid", USERID)
+                        .param("year", YEAR)
+                        .param("month", MONTH)
+                        .param("kind", "0")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 
     @Test
-    void getYearListFromAccounttb() {
-        ResponseResult<List<Integer>> result = accountController.getYearListFromAccounttb(USERID);
-        Assertions.assertEquals("success", result.getMessage());
-        Assertions.assertNotNull(result.getData());
+    void getSumMoneyOneYear() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/accountant-meow/getSumMoneyOneYear")
+                        .param("userid", USERID)
+                        .param("year", YEAR)
+                        .param("kind", "0")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 
     @Test
-    void getChartListFromAccounttb() {
-        ResponseResult<List<ChartItem>> result = accountController.getChartListFromAccounttb(YEAR, MONTH, 0, USERID);
-        Assertions.assertEquals("success", result.getMessage());
-        Assertions.assertNotNull(result.getData());
+    void deleteItemFromAccounttbById() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.delete("/accountant-meow/deleteItemFromAccounttbById")
+                        .param("userid", USERID)
+                        .param("id", "1")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 
     @Test
-    void getMaxMoneyOneDayInMonth() {
-        ResponseResult<List<Float>> result = accountController.getMaxMoneyOneDayInMonth(YEAR, MONTH, 0, USERID);
-        Assertions.assertEquals("success", result.getMessage());
-        Assertions.assertNotNull(result.getData());
+    void updateItemFromAccounttbById() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.put("/accountant-meow/updateItemFromAccounttbById")
+                        .param("id", "1")
+                        .param("userid", USERID)
+                        .param("typename", "交通")
+                        .param("sImageId", "2131165399")
+                        .param("beizhu", "地铁")
+                        .param("money", MONEY)
+                        .param("time", "2022年05月23日 16:32")
+                        .param("year", YEAR)
+                        .param("month", MONTH)
+                        .param("day", DAY)
+                        .param("kind", "0")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 
     @Test
-    void getSumMoneyOneDayInMonth() {
-        ResponseResult<List<BarCharItem>> result = accountController.getSumMoneyOneDayInMonth(YEAR, MONTH, 0, USERID);
-        Assertions.assertEquals("success", result.getMessage());
-        Assertions.assertNotNull(result.getData());
+    void getYearListFromAccounttb() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/accountant-meow/getYearListFromAccounttb")
+                        .param("userid", USERID)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 
     @Test
-    void getAccountListByRemarkFromAccounttb() {
-        ResponseResult<List<Account>> result = accountController.getAccountListByRemarkFromAccounttb("地铁", USERID);
-        Assertions.assertEquals("success", result.getMessage());
-        Assertions.assertNotNull(result.getData());
+    void getChartListFromAccounttb() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/accountant-meow/getChartListFromAccounttb")
+                        .param("userid", USERID)
+                        .param("year", YEAR)
+                        .param("month", MONTH)
+                        .param("kind", "0")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 
     @Test
-    void getAccountListByTypeFromAccounttb() {
-        ResponseResult<List<Account>> result = accountController.getAccountListByTypeFromAccounttb("其他", USERID);
-        Assertions.assertEquals("success", result.getMessage());
-        Assertions.assertNotNull(result.getData());
+    void getMaxMoneyOneDayInMonth() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/accountant-meow/getMaxMoneyOneDayInMonth")
+                        .param("userid", USERID)
+                        .param("year", YEAR)
+                        .param("month", MONTH)
+                        .param("kind", "0")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 
     @Test
-    void insertBudget() {
-        ResponseResult<Float> result = accountController.insertBudget(USERID, 1500);
-        Assertions.assertEquals("success", result.getMessage());
+    void getSumMoneyOneDayInMonth() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/accountant-meow/getSumMoneyOneDayInMonth")
+                        .param("userid", USERID)
+                        .param("year", YEAR)
+                        .param("month", MONTH)
+                        .param("kind", "0")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 
     @Test
-    void deleteItemFromAccounttbById() {
-        ResponseResult<String> result = accountController.deleteItemFromAccounttbById(8, USERID);
-        Assertions.assertEquals("success", result.getMessage());
-        Assertions.assertNotNull(result.getData());
+    void getAccountListByRemarkFromAccounttb() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/accountant-meow/getAccountListByRemarkFromAccounttb")
+                        .param("userid", USERID)
+                        .param("beizhu", "地铁")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void getAccountListByTypeFromAccounttb() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/accountant-meow/getAccountListByTypeFromAccounttb")
+                        .param("userid", USERID)
+                        .param("type", "其他")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void getBudget() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/accountant-meow/getBudget")
+                        .param("userid", USERID)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void insertBudget() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post("/accountant-meow/insertBudget")
+                        .param("userid", USERID)
+                        .param("budget", "1600")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 }
