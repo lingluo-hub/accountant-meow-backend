@@ -1,6 +1,8 @@
 package com.meow.accountant.controller;
 
 import com.meow.accountant.entity.response.ResponseResult;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.cache.CacheManager;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,11 +17,14 @@ public class CachingController {
     @Resource
     private CacheManager cacheManager;
 
+    Logger logger = LogManager.getLogger("清空缓存");
+
     @DeleteMapping("/clearcaches")
     public ResponseResult<Void> clearAllCaches() {
         cacheManager
                 .getCacheNames()
                 .forEach(cacheName -> Objects.requireNonNull(cacheManager.getCache(cacheName)).clear());
+        logger.info("clear ALL cache");
         return ResponseResult.success();
     }
 }
