@@ -61,6 +61,7 @@ jobs:
       - name: Test with Maven
         env:
           DB_URL: localhost
+          REDIS_URL: localhost
           DB_USER_NAME: postgres
           DB_USER_PSWD: postgres
         run: mvn test

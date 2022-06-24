@@ -44,7 +44,6 @@ public class AccountController {
      * @param request http请求
      * @return List
      */
-    @CachePut(value = "account", key = "#root.methodName + #a0")
     @GetMapping("/index")
     public SearchResult<Map<String, Object>> index(HttpServletRequest request) {
         return mapSearcher.search(Account.class, MapUtils.flat(request.getParameterMap()), new String[]{"money"}); //money字段统计

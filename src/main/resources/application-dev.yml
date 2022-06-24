@@ -56,7 +56,7 @@ spring:
           merge-sql: false
   redis:
     database: 0
-    host: localhost
+    host: ${REDIS_URL}
     port: 6379
     password:
     lettuce:
