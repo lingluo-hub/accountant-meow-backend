@@ -9,6 +9,8 @@
 ![Spring Version](https://img.shields.io/badge/spring%20boot-2.7.0-green)
 [![codecov](https://codecov.io/gh/lingluo-hub/accountant-meow-backend/branch/main/graph/badge.svg?token=FgwEZXPtOM)](https://codecov.io/gh/lingluo-hub/accountant-meow-backend)
 
+中文 | [English](./README.en.md)
+
 ## 简介
 
 采用 Spring Boot + MyBatis 核心技术栈，为记账喵安卓 App 开发的服务端, 遵循 [RESTful API](https://restfulapi.net/) 开发。
