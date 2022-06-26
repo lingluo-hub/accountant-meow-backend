@@ -7,7 +7,7 @@ on:
   push:
     branches: [ main ]
     paths-ignore:
-      - 'README.md'
+      - '*.md'
       - 'Dockerfile'
       - '.github/workflows/docker.yml'
   pull_request:
