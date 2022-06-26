@@ -5,6 +5,8 @@
 
 [](https://www.oscs1024.com/project/lingluo-hub/accountant-meow-backend?ref=badge_small)![OSCS Status](https://www.oscs1024.com/platform/badge/lingluo-hub/accountant-meow-backend.svg?size=small) [](https://github.com/lingluo-hub/accountant-meow-backend/actions/workflows/maven.yml)![Java CI with Maven](https://github.com/lingluo-hub/accountant-meow-backend/actions/workflows/maven.yml/badge.svg) ![Spring Version](https://img.shields.io/badge/spring%20boot-2.7.0-green) [](https://codecov.io/gh/lingluo-hub/accountant-meow-backend)![codecov](https://codecov.io/gh/lingluo-hub/accountant-meow-backend/branch/main/graph/badge.svg?token=FgwEZXPtOM)
 
+[中文](./README.md) | English
+
 ## Introduction
 
 Using Spring Boot + MyBatis core technology stack, the server developed for the Accountant Meow Android App follows the [RESTful API](https://restfulapi.net/) development.
