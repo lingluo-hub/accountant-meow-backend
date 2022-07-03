@@ -1,13 +1,16 @@
 package com.meow.accountant.entity;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.io.Serializable;
-
+/**
+ * @author 凌洛
+ */
 @Getter
 @Setter
 @NoArgsConstructor
-public class ResultFromAccounttb implements Serializable {
+public class ResultFromAccounttb implements BaseEntity {
     private String typename;
     private int sImageId;
     private float total;

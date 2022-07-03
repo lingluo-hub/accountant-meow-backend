@@ -1,13 +1,16 @@
 package com.meow.accountant.entity;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.io.Serializable;
-
+/**
+ * @author 凌洛
+ */
 @Getter
 @Setter
 @NoArgsConstructor
-public class ChartItem implements Serializable {
+public class ChartItem implements BaseEntity {
     private int sImageId;
     private String typename;
     private float ratio;   //所占比例
