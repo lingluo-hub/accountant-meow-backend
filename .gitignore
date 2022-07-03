@@ -32,8 +32,8 @@ build/
 ### VS Code ###
 .vscode/
 
-### logs ###
-data/logs
+### data/logs ###
+data/
 
 ### prod ###
 src/main/resources/application-prod.yml
