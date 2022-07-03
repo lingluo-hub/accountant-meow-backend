@@ -4,6 +4,9 @@ import com.ejlchina.searcher.SqlWrapper;
 import com.ejlchina.searcher.dialect.Dialect;
 import com.ejlchina.searcher.param.Paging;
 
+/**
+ * @author 凌洛
+ */
 public class PostgreSqlDialect implements Dialect {
 
     @Override

@@ -5,6 +5,9 @@ import lombok.Getter;
 
 import java.util.List;
 
+/**
+ * @author 凌洛
+ */
 @Getter
 @AllArgsConstructor
 public enum ResponseStatus {

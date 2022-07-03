@@ -16,10 +16,12 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * @author 凌洛
+ */
 @Configuration
 @EnableCaching
 public class RedisConfig {
-
     @Bean("json")
     public RedisTemplate<Object, Object> redisTemplateJson(RedisConnectionFactory factory) {
         RedisTemplate<Object, Object> redisTemplate = new RedisTemplate<>();

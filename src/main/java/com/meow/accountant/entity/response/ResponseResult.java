@@ -6,6 +6,10 @@ import lombok.Getter;
 
 import java.io.Serializable;
 
+/**
+ * @author 凌洛
+ * @param <T>
+ */
 @Getter
 @Builder
 public class ResponseResult<T> implements Serializable {

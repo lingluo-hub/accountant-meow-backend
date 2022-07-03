@@ -107,8 +107,6 @@ public class AccountController {
         return ResponseResult.success(accountService.getAccountByMonth(year, month, userid));
     }
 
-    //获取某一天的支出或者收入的总金额   kind：支出==0    收入===1
-
     /**
      * 获取某一天的支出或者收入的总金额
      *
@@ -189,8 +187,6 @@ public class AccountController {
         logger.warn("HTTP:DELETE deleteItemFromAccounttbById:{}", userid);
         return ResponseResult.success("Delete record successfully");
     }
-
-    //
 
     /**
      * 根据传入的id，修改accounttb中的一条数据

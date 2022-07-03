@@ -2,13 +2,13 @@ package com.meow.accountant.entity;
 
 import com.ejlchina.searcher.bean.DbField;
 import com.ejlchina.searcher.bean.SearchBean;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.io.Serializable;
 
 /**
  * @author lihangqi
@@ -18,7 +18,7 @@ import java.io.Serializable;
 @Entity
 @SearchBean(tables = "accounttb", autoMapTo = "accounttb")
 @Table(name = "accounttb")
-public class Account implements Serializable {
+public class Account implements BaseEntity {
 
     @Id
     private int id;

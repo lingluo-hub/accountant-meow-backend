@@ -1,13 +1,16 @@
 package com.meow.accountant.entity;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.io.Serializable;
-
+/**
+ * @author 凌洛
+ */
 @Getter
 @Setter
 @NoArgsConstructor
-public class ResultSumMoneyOneDayInMonth implements Serializable {
+public class ResultSumMoneyOneDayInMonth implements BaseEntity {
     private int day;
     private float summoney;
 }

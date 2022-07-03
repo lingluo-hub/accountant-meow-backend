@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import java.util.Objects;
 
+/**
+ * @author 凌洛
+ * @Description 清空 Redis 缓存
+ */
 @RestController
 @RequestMapping("/accountant-meow")
 public class CachingController {

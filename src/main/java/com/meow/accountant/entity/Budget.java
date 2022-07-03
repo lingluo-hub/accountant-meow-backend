@@ -7,13 +7,15 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.io.Serializable;
 
+/**
+ * @author 凌洛
+ */
 @Getter
 @Setter
 @Entity
 @Table(name = "budget")
-public class Budget implements Serializable {
+public class Budget implements BaseEntity {
     @Id
     private String userid;
 
