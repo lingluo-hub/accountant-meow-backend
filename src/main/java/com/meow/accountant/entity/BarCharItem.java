@@ -1,12 +1,14 @@
 package com.meow.accountant.entity;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 
-import java.io.Serializable;
-
+/**
+ * @author 凌洛
+ */
 @Getter
 @Setter
-public class BarCharItem implements Serializable {
+public class BarCharItem implements BaseEntity {
     private int year;
     private int month;
     private int day;
