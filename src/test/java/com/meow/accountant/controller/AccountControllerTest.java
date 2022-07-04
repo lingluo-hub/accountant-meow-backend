@@ -32,16 +32,12 @@ class AccountControllerTest {
     private static final String YEAR = "2022";
     private static final String MONTH = "5";
     private static final String DAY = "10";
-    private static final String DO_NOT_EXIST = "Record does not exist!";
-
+    
     @MockBean
     private AccountServiceImpl accountService;
 
     @MockBean
     private MapSearcher mapSearcher;
-
-    @Autowired
-    private AccountController accountController;
 
     @BeforeEach
     void setUp() {

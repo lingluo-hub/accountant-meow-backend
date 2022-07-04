@@ -1,8 +1,6 @@
 package com.meow.accountant.entity.response;
 
 import com.meow.accountant.AccountantMeowBackendApplication;
-import com.meow.accountant.controller.AccountController;
-import com.meow.accountant.entity.Account;
 import com.meow.accountant.service.AccountServiceImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -10,8 +8,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = AccountantMeowBackendApplication.class)
