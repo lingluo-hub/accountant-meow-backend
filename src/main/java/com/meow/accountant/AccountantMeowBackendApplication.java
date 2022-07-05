@@ -1,6 +1,6 @@
 package com.meow.accountant;
 
-import com.meow.accountant.config.PostgreSqlDialect;
+import com.ejlchina.searcher.dialect.PostgreSqlDialect;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;

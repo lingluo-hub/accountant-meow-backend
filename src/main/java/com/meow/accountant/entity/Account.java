@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * @author lihangqi
+ * @author 凌洛
  */
 @Getter
 @Setter
