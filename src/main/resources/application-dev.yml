@@ -7,9 +7,9 @@ spring:
       name: ${USER_NAME}
       password: ${USER_PSWD}
   datasource:
-    username: ${DB_USER_NAME}
+    username: ${DB_USER_NAME:postgres}
     password: ${DB_USER_PSWD}
-    url: jdbc:postgresql://${DB_URL}:5432/accountant_meow?serverTimezone=PRC
+    url: jdbc:postgresql://${DB_URL:localhost}:${DB_PORT:5432}/accountant_meow?serverTimezone=PRC
     driver-class-name: org.postgresql.Driver
     # Druid datasource
     type: com.alibaba.druid.pool.DruidDataSource
@@ -56,8 +56,8 @@ spring:
           merge-sql: false
   redis:
     database: 0
-    host: ${REDIS_URL}
-    port: 6379
+    host: ${REDIS_URL:localhost}
+    port: ${REDIS_PORT:6379}
     password:
     lettuce:
       pool:
