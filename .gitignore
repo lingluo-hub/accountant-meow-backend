@@ -38,3 +38,6 @@ data/
 ### prod ###
 src/main/resources/application-prod.yml
 .env
+
+### smart-doc ###
+src/main/resources/static/doc/*

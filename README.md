@@ -57,7 +57,7 @@ You can see the `.jar` file generation under the `target` .
 . /mvnw smart-doc:html
 ```
 
-will generate html documentation site under ``src/main/resources/static/doc``. It can be viewed at `http://localhost/doc/api.html` after running.
+will generate html documentation site under `src/main/resources/static/doc`. It can be viewed at `http://localhost/doc/api.html` after running.
 
 See [smart-doc](https://smart-doc-group.github.io/) for details .
 
