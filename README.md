@@ -1,108 +1,125 @@
-<div align=center>
-<img src='https://user-images.githubusercontent.com/25563773/171997432-ff332de2-f85d-44e2-87d1-67247f73df9a.png' width="15%" />
+<div align="center"> <img src="https://user-images.githubusercontent.com/25563773/171997432-ff332de2-f85d-44e2-87d1-67247f73df9a.png" width="15%">
 </div>
-<h2 align="center">记账喵后端</h2>
+<h2 align="center">Accountant Meow Backend</h2>
 <p align="center">Accountant Meow Backend</p>
 
-[![OSCS Status](https://www.oscs1024.com/platform/badge/lingluo-hub/accountant-meow-backend.svg?size=small)](https://www.oscs1024.com/project/lingluo-hub/accountant-meow-backend?ref=badge_small)
-[![Java CI with Maven](https://github.com/lingluo-hub/accountant-meow-backend/actions/workflows/maven.yml/badge.svg)](https://github.com/lingluo-hub/accountant-meow-backend/actions/workflows/maven.yml)
-![Spring Version](https://img.shields.io/badge/spring%20boot-2.7.0-green)
-[![codecov](https://codecov.io/gh/lingluo-hub/accountant-meow-backend/branch/main/graph/badge.svg?token=FgwEZXPtOM)](https://codecov.io/gh/lingluo-hub/accountant-meow-backend)
+[](https://www.oscs1024.com/project/lingluo-hub/accountant-meow-backend?ref=badge_small)![OSCS Status](https://www.oscs1024.com/platform/badge/lingluo-hub/accountant-meow-backend.svg?size=small) [](https://github.com/lingluo-hub/accountant-meow-backend/actions/workflows/maven.yml)![Java CI with Maven](https://github.com/lingluo-hub/accountant-meow-backend/actions/workflows/maven.yml/badge.svg) ![Spring Version](https://img.shields.io/badge/spring%20boot-2.7.0-green) [](https://codecov.io/gh/lingluo-hub/accountant-meow-backend)![codecov](https://codecov.io/gh/lingluo-hub/accountant-meow-backend/branch/main/graph/badge.svg?token=FgwEZXPtOM)
 
-中文 | [English](./README.en.md)
+[中文](./README.cn.md) | English
 
-## 简介
+## Introduction
 
-采用 Spring Boot + MyBatis 核心技术栈，为记账喵安卓 App 开发的服务端, 遵循 [RESTful API](https://restfulapi.net/) 开发。
+Using Spring Boot + MyBatis core technology stack, the server developed for the Accountant Meow Android App follows the [RESTful API](https://restfulapi.net/) development.
+Use the smart-doc api interface document generator.
 
-## 快速开始
+## Quick Start
 
-### 环境准备
+### Environmental preparation
 
-- JDK 11 (可前往 https://www.azul.com/downloads/?version=java-11-lts&package=jdk 下载对应操作系统的 Java JDK, 推荐版本 >=11)
-- Maven (**可选** 可前往 https://maven.apache.org/ 获取最新版)
-- Docker (**可选** 可前往 https://www.docker.com/get-started/ 获取 对应操作系统的 Docker)
+- JDK 11 (Go to https://www.azul.com/downloads/?version=java-11-lts&amp;package=jdk to download the Java JDK of the corresponding operating system, the recommended version&gt;=11)
+- Maven ( **optional** , go to https://maven.apache.org/ to get the latest version)
+- Docker ( **optional** , go to https://www.docker.com/get-started/ to get Docker for the corresponding operating system)
 
-### 环境变量说明
+### Description of environment variables
 
-| 变量名          | 说明                        |
-|:-------------|:--------------------------|
-| USER_NAME    | Spring Boot Security 用户名  |
-| USER_PSWD    | Spring Boot Security 用户密码 |
-| DB_URL       | PostgreSQL数据库地址           |
-| DB_USER_NAME | PostgreSQL数据库用户名          |
-| DB_USER_PSWD | PostgreSQL数据库用户密码         |
+| Variable Name | Description                                    |
+|:--------------|:-----------------------------------------------|
+| USER_NAME     | Spring Boot Security user name                 |
+| USER_PSWD     | Spring Boot Security user password             |
+| DB_URL        | PostgreSQL database address, default:localhost |
+| DB_USER_NAME  | PostgreSQL database username, default:postgres |
+| DB_USER_PSWD  | PostgreSQL database user password              |
+| DB_PORT       | PostgreSQL database port, default:5432         |
+| REDIS_URL     | Redis database address, default:localhost      |
+| REDIS_PORT    | Redis database port, default:6379              |
 
+### Build
 
-### 构建
+1. Local environment Maven build
 
-1. 本地环境 Maven 构建
 ```shell
 git clone https://github.com/lingluo-hub/accountant-meow-backend.git
 cd accountant-meow-backend
 mvn -B package --file pom.xml -DskipTests
 ```
 
-2. 使用 mvnw 构建
-  ```shell
-  ./mvnw -B package --file pom.xml -DskipTests
-  ```
+2. build with mvnw
 
-在 `target` 下可看到 `.jar` 的文件生成。
+```shell
+./mvnw -B package --file pom.xml -DskipTests
+```
 
-### 运行
+You can see the `.jar` file generation under the `target` .
 
-1. Java 环境运行
+3. *(Optional)* Generate API documentation
 
-  ```shell
-  cd target
-  mv accountant-meow-backend-*.jar app.jar
-  java -jar app.jar
-  ```
+```shell
+. /mvnw smart-doc:html
+```
 
-2. Docker 运行
-   新建文件 `.env` (环境变量配置文件), 填入以下内容:
+will generate html documentation site under ``src/main/resources/static/doc``. It can be viewed at `http://localhost/doc/api.html` after running.
 
-  ```
-  USER_NAME=<Spring Boot Security 用户名>
-  USER_PSWD=<Spring Boot Security 用户密码>
-  DB_URL=<PostgreSQL数据库地址>
-  DB_USER_NAME=<PostgreSQL数据库用户名>
-  DB_USER_PSWD=<PostgreSQL数据库用户密码>
-  ```
+See [smart-doc](https://smart-doc-group.github.io/) for details .
 
-然后运行:
+### Run
 
-  最新发行版
-  ```shell
-  docker run --env-file .env adaclosure/acmw-backend:1.4.2
-  ```
+1. Java environment running
 
-  最新开发版
-  ```shell
-  docker run --env-file .env adaclosure/acmw-backend:latest
-  ```
+```shell
+cd target
+mv accountant-meow-backend-*.jar app.jar
+java -jar app.jar
+```
 
-本应用端口 `8080`，无图形化界面。
+2. Docker runs the new file `.env` (environment variable configuration file) with the following content:
 
-## 开发指引
-### 开发环境
+```
+USER_NAME=<Spring Boot Security username>
+USER_PSWD=<Spring Boot Security user password>
+DB_URL=<PostgreSQL database url, default:localhost>
+DB_USER_NAME=<PostgreSQL database username, default:postgres>
+DB_USER_PSWD=<PostgreSQL database user password>
+DB_PORT=<PostgreSQL database port, default:5432>
+REDIS_URL=<Redis database address, default:localhost>
+REDIS_PORT=<Redis database port, default:6379>
+```
 
-- JDK 11 (可前往 https://www.azul.com/downloads/?version=java-11-lts&package=jdk 下载对应操作系统的 Java JDK, 推荐版本 >=11)
-- Maven (可前往 https://maven.apache.org/ 获取最新版)
-- Docker (**可选** 可前往 https://www.docker.com/get-started/ 获取 对应操作系统的 Docker)
-- PostgreSQL (本项目使用的后端数据库，开放端口 5432)
-- Redis (本项目使用的缓存数据库，开放端口 6379)
-- IntelliJ IDEA (颇受欢迎的 Java 开发 IDE)
+Then run:
 
-### 数据库初始化
+latest release
 
-**推荐** 开发环境下使用 docker 开启 PostgreSQL 和 Redis 数据库: 
+```shell
+docker run --env-file .env adaclosure/acmw-backend:1.4.2
+```
+
+Latest development version
+
+```shell
+docker run --env-file .env adaclosure/acmw-backend:latest
+```
+
+This application port `8080` , no graphical interface.
+
+## Development Guidelines
+
+### Development Environment
+
+- JDK 11 (Go to https://www.azul.com/downloads/?version=java-11-lts&amp;package=jdk to download the Java JDK of the corresponding operating system, the recommended version&gt;=11)
+- Maven (go to https://maven.apache.org/ to get the latest version)
+- Docker ( **optional** , go to https://www.docker.com/get-started/ to get the Docker for the corresponding operating system)
+- PostgreSQL (backend database used in this project, open port 5432)
+- Redis (cache database used in this project, open port 6379)
+- IntelliJ IDEA (popular IDE for Java development)
+
+### Database initialization
+
+It is **recommended** to use docker to start PostgreSQL and Redis database in development environment:
+
 ```shell
 docker run \
   -v postgres-data:/var/lib/postgresql/data \
   --name postgresql \
-  -e POSTGRES_PASSWORD=<数据库postgres用户密码> \
+  -e POSTGRES_PASSWORD=<postgres user password> \
   -e POSTGRES_DB=accountant_meow \
   -p 5432:5432 \
   -d postgres
@@ -112,7 +129,6 @@ docker run \
 docker run --name redis -p 6379:6379 -d redis redis-server --appendonly yes
 ```
 
-docker 启动时已完成创建数据库 `accountant_meow`, 本项目自带的 [flyway](https://flywaydb.org/) 会在启动时自动初始化此数据库、建表及插入示例数据。
-配置文件位置: `src/main/resources/db/migration/V1.0__Init_DB.sql` 和 `src/main/resources/db/migration/V1.1__Init_Data.sql`
+When docker starts, the database `accountant_meow` has been created. The [flyway](https://flywaydb.org/) that comes with this project will automatically initialize the database, create tables and insert sample data at startup. Configuration file location: `src/main/resources/db/migration/V1.0__Init_DB.sql` and `src/main/resources/db/migration/V1.1__Init_Data.sql`
 
-接口文档：[APIfox 在线文档](https://www.apifox.cn/apidoc/shared-ea01e1d8-803d-4828-988e-540fd0a572e9)
+Interface Documentation: [APIfox Online Documentation](https://www.apifox.cn/apidoc/shared-ea01e1d8-803d-4828-988e-540fd0a572e9)
