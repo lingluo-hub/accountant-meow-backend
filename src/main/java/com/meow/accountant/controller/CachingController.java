@@ -1,6 +1,8 @@
 package com.meow.accountant.controller;
 
 import com.meow.accountant.entity.response.ResponseResult;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.cache.CacheManager;
@@ -15,6 +17,7 @@ import java.util.Objects;
  * @author 凌洛
  * @Description 清空 Redis 缓存
  */
+@Api
 @RestController
 @RequestMapping("/accountant-meow")
 public class CachingController {
@@ -23,6 +26,7 @@ public class CachingController {
 
     Logger logger = LogManager.getLogger("清空缓存");
 
+    @ApiOperation("清空缓存")
     @DeleteMapping("/clearcaches")
     public ResponseResult<Void> clearAllCaches() {
         cacheManager

@@ -8,6 +8,9 @@ import com.meow.accountant.entity.BarCharItem;
 import com.meow.accountant.entity.ChartItem;
 import com.meow.accountant.entity.response.ResponseResult;
 import com.meow.accountant.service.AccountServiceImpl;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.cache.annotation.CachePut;
@@ -24,6 +27,7 @@ import java.util.Map;
  * <p>userid: 用户id唯一标识，区别记录</p>
  */
 
+@Api
 @RestController
 @RequestMapping("/accountant-meow")
 public class AccountController {
@@ -64,6 +68,7 @@ public class AccountController {
      * @param userid   用户id
      */
 
+    @ApiOperation("向记账表当中插入一条元素")
     @CachePut(value = "account", key = "#root.methodName + #userid")
     @PostMapping("/insertAccount")
     public ResponseResult<List<Account>> insertAccount(@RequestParam String typename, @RequestParam int sImageId, @RequestParam String beizhu,
@@ -85,8 +90,9 @@ public class AccountController {
      * @return AccountList
      */
 
+    @ApiOperation("获取记账表当中某一天的所有支出或者收入情况")
     @CachePut(value = "account", key = "#root.methodName + #year + #month + #day + #userid")
-    @RequestMapping("/getAccountByDate")
+    @GetMapping("/getAccountByDate")
     public ResponseResult<List<Account>> getAccountByDate(@RequestParam int year, @RequestParam int month, @RequestParam int day, @RequestParam String userid) {
         logger.info("HTTP:GET getAccountByDate:{}", userid);
         return ResponseResult.success(accountService.getAccountByDate(year, month, day, userid));
@@ -100,8 +106,10 @@ public class AccountController {
      * @param userid 用户id
      * @return AccountList
      */
+
+    @ApiOperation("获取记账表当中某一月的所有支出或者收入情况")
     @CachePut(value = "account", key = "#root.methodName + #year + #month + #userid")
-    @RequestMapping("/getAccountByMonth")
+    @GetMapping("/getAccountByMonth")
     public ResponseResult<List<Account>> getAccountByMonth(@RequestParam int year, @RequestParam int month, @RequestParam String userid) {
         logger.info("HTTP:GET getAccountByMonth:{}", userid);
         return ResponseResult.success(accountService.getAccountByMonth(year, month, userid));
@@ -117,8 +125,10 @@ public class AccountController {
      * @param userid 用户id
      * @return Float
      */
+
+    @ApiOperation("获取某一天的支出或者收入的总金额")
     @CachePut(value = "account", key = "#root.methodName + #year + #month + #day + #kind+ #userid")
-    @RequestMapping("/getSumMoneyOneDay")
+    @GetMapping("/getSumMoneyOneDay")
     public ResponseResult<Float> getSumMoneyOneDay(@RequestParam int year, @RequestParam int month, @RequestParam int day,
                                                    @RequestParam int kind, @RequestParam String userid) {
         Float result = accountService.getSumMoneyOneDay(year, month, day, kind, userid);
@@ -135,8 +145,9 @@ public class AccountController {
      * @param userid 用户id
      * @return Float
      */
+    @ApiOperation("获取某一月的支出或者收入的总金额")
     @CachePut(value = "account", key = "#root.methodName + #year + #month + #kind+ #userid")
-    @RequestMapping("/getSumMoneyOneMonth")
+    @GetMapping("/getSumMoneyOneMonth")
     public ResponseResult<Float> getSumMoneyOneMonth(@RequestParam int year, @RequestParam int month, @RequestParam int kind, @RequestParam String userid) {
         Float result = accountService.getSumMoneyOneMonth(year, month, kind, userid);
         logger.info("HTTP:GET getSumMoneyOneMonth:{}", userid);
@@ -152,8 +163,9 @@ public class AccountController {
      * @param userid 用户id
      * @return int
      */
+    @ApiOperation("统计某月份支出或者收入情况有多少条")
     @CachePut(value = "account", key = "#root.methodName + #year + #month + #kind+ #userid")
-    @RequestMapping("/getCountItemOneMonth")
+    @GetMapping("/getCountItemOneMonth")
     public ResponseResult<Integer> getCountItemOneMonth(@RequestParam int year, @RequestParam int month, @RequestParam int kind, @RequestParam String userid) {
         logger.info("HTTP:GET getCountItemOneMonth:{}", userid);
         return ResponseResult.success(accountService.getCountItemOneMonth(year, month, kind, userid));
@@ -167,8 +179,9 @@ public class AccountController {
      * @param userid 用户id
      * @return float
      */
+    @ApiOperation("获取某一年的支出或者收入的总金额")
     @CachePut(value = "account", key = "#root.methodName + #year + #kind + #userid")
-    @RequestMapping("/getSumMoneyOneYear")
+    @GetMapping("/getSumMoneyOneYear")
     public ResponseResult<Float> getSumMoneyOneYear(@RequestParam int year, @RequestParam int kind, @RequestParam String userid) {
         logger.info("HTTP:GET getSumMoneyOneYear:{}", userid);
         return ResponseResult.success(accountService.getSumMoneyOneYear(year, kind, userid));
@@ -180,6 +193,7 @@ public class AccountController {
      * @param id     数据库表记录id
      * @param userid 用户id
      */
+    @ApiOperation("根据传入的id，删除accounttb表当中的一条数据")
     @CachePut(value = "account", key = "#root.methodName + #userid")
     @DeleteMapping("/deleteItemFromAccounttbById")
     public ResponseResult<String> deleteItemFromAccounttbById(@RequestParam int id, @RequestParam String userid) {
@@ -203,6 +217,7 @@ public class AccountController {
      * @param kind     记账类型
      * @param userid   用户id
      */
+    @ApiOperation("根据传入的id，修改accounttb中的一条数据")
     @CachePut(value = "account", key = "#root.methodName + #userid")
     @PutMapping("/updateItemFromAccounttbById")
     public ResponseResult<List<Account>> updateItemFromAccounttbById(@RequestParam int id, @RequestParam String typename, @RequestParam int sImageId,
@@ -221,6 +236,7 @@ public class AccountController {
      * @param userid 用户id
      * @return List
      */
+    @ApiOperation("查询记账的表当中有几个年份信息")
     @CachePut(value = "account", key = "#root.methodName + #userid")
     @GetMapping("/getYearListFromAccounttb")
     public ResponseResult<List<Integer>> getYearListFromAccounttb(@RequestParam String userid) {
@@ -237,6 +253,7 @@ public class AccountController {
      * @param userid 用户id
      * @return List
      */
+    @ApiOperation("查询指定年份和月份的收入或者支出每一种类型的总钱数")
     @CachePut(value = "account", key = "#root.methodName + #year + #month + #kind + #userid")
     @GetMapping("/getChartListFromAccounttb")
     public ResponseResult<List<ChartItem>> getChartListFromAccounttb(@RequestParam int year, @RequestParam int month, @RequestParam int kind, @RequestParam String userid) {
@@ -254,6 +271,7 @@ public class AccountController {
      * @param userid 用户id
      * @return List
      */
+    @ApiOperation("某月单日最大支出/收入额")
     @CachePut(value = "account", key = "#root.methodName + #year + #month + #kind + #userid")
     @GetMapping("/getMaxMoneyOneDayInMonth")
     public ResponseResult<List<Float>> getMaxMoneyOneDayInMonth(@RequestParam int year, @RequestParam int month, @RequestParam int kind, @RequestParam String userid) {
@@ -270,6 +288,7 @@ public class AccountController {
      * @param userid 用户id
      * @return List
      */
+    @ApiOperation("根据指定月份每一日收入或者支出的总钱数的集合")
     @CachePut(value = "account", key = "#root.methodName + #year + #month + #kind + #userid")
     @GetMapping("/getSumMoneyOneDayInMonth")
     public ResponseResult<List<BarCharItem>> getSumMoneyOneDayInMonth(@RequestParam int year, @RequestParam int month, @RequestParam int kind, @RequestParam String userid) {
@@ -284,6 +303,7 @@ public class AccountController {
      * @param userid 用户id
      * @return List
      */
+    @ApiOperation("根据备注搜索收入/支出的情况列表")
     @CachePut(value = "account", key = "#root.methodName + #beizhu + #userid")
     @GetMapping("/getAccountListByRemarkFromAccounttb")
     public ResponseResult<List<Account>> getAccountListByRemarkFromAccounttb(@RequestParam String beizhu, @RequestParam String userid) {
@@ -298,6 +318,7 @@ public class AccountController {
      * @param userid 用户id
      * @return List
      */
+    @ApiOperation("根据类型搜索收入/支出的情况列表")
     @CachePut(value = "account", key = "#root.methodName + #type + #userid")
     @GetMapping("/getAccountListByTypeFromAccounttb")
     public ResponseResult<List<Account>> getAccountListByTypeFromAccounttb(@RequestParam String type, @RequestParam String userid) {
@@ -311,6 +332,7 @@ public class AccountController {
      * @param userid 用户id
      * @return Float
      */
+    @ApiOperation("获取预算")
     @CachePut(value = "account", key = "#root.methodName + #userid")
     @GetMapping("/getBudget")
     public ResponseResult<Float> getBudget(@RequestParam String userid) {
@@ -325,6 +347,7 @@ public class AccountController {
      * @param userid 用户id
      * @param budget 预算记录
      */
+    @ApiOperation("插入预算")
     @CachePut(value = "account", key = "#root.methodName + #budget + #userid")
     @PostMapping("/insertBudget")
     public ResponseResult<Float> insertBudget(@RequestParam String userid, @RequestParam float budget) {
