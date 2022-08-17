@@ -3,14 +3,17 @@
 <h2 align="center">Accountant Meow Backend</h2>
 <p align="center">Accountant Meow Backend</p>
 
-[](https://www.oscs1024.com/project/lingluo-hub/accountant-meow-backend?ref=badge_small)![OSCS Status](https://www.oscs1024.com/platform/badge/lingluo-hub/accountant-meow-backend.svg?size=small) [](https://github.com/lingluo-hub/accountant-meow-backend/actions/workflows/maven.yml)![Java CI with Maven](https://github.com/lingluo-hub/accountant-meow-backend/actions/workflows/maven.yml/badge.svg) ![Spring Version](https://img.shields.io/badge/spring%20boot-2.7.0-green) [](https://codecov.io/gh/lingluo-hub/accountant-meow-backend)![codecov](https://codecov.io/gh/lingluo-hub/accountant-meow-backend/branch/main/graph/badge.svg?token=FgwEZXPtOM)
+[![OSCS Status](https://www.oscs1024.com/platform/badge/lingluo-hub/accountant-meow-backend.svg?size=small)](https://www.oscs1024.com/project/lingluo-hub/accountant-meow-backend?ref=badge_small)
+[![Java CI with Maven](https://github.com/lingluo-hub/accountant-meow-backend/actions/workflows/maven.yml/badge.svg)](https://github.com/lingluo-hub/accountant-meow-backend/actions/workflows/maven.yml)
+![Spring Version](https://img.shields.io/badge/spring%20boot-2.7.2-green)
+[![codecov](https://codecov.io/gh/lingluo-hub/accountant-meow-backend/branch/main/graph/badge.svg?token=FgwEZXPtOM)](https://codecov.io/gh/lingluo-hub/accountant-meow-backend)
 
 [中文](./README.cn.md) | English
 
 ## Introduction
 
 Using Spring Boot + MyBatis core technology stack, the server developed for the Accountant Meow Android App follows the [RESTful API](https://restfulapi.net/) development.
-Use the smart-doc api interface document generator.
+Use the Swagger API documentation.
 
 ## Quick Start
 
@@ -19,6 +22,7 @@ Use the smart-doc api interface document generator.
 - JDK 11 (Go to https://www.azul.com/downloads/?version=java-11-lts&amp;package=jdk to download the Java JDK of the corresponding operating system, the recommended version&gt;=11)
 - Maven ( **optional** , go to https://maven.apache.org/ to get the latest version)
 - Docker ( **optional** , go to https://www.docker.com/get-started/ to get Docker for the corresponding operating system)
+- Docker Compose ( **optional** , go to https://docs.docker.com/compose/ to get Docker Compose)
 
 ### Description of environment variables
 
@@ -51,17 +55,9 @@ mvn -B package --file pom.xml -DskipTests
 
 You can see the `.jar` file generation under the `target` .
 
-3. *(Optional)* Generate API documentation
-
-```shell
-. /mvnw smart-doc:html
-```
-
-will generate html documentation site under `src/main/resources/static/doc`. It can be viewed at `http://localhost/doc/api.html` after running.
-
-See [smart-doc](https://smart-doc-group.github.io/) for details .
-
 ### Run
+
+[View API documentation after running](http://localhost:8080/swagger-ui/index.html#/).
 
 1. Java environment running
 
@@ -84,6 +80,8 @@ REDIS_URL=<Redis database address, default:localhost>
 REDIS_PORT=<Redis database port, default:6379>
 ```
 
+> This repository comes with a `.env` file for use with `docker-compose.yml`.
+
 Then run:
 
 latest release
@@ -98,7 +96,11 @@ Latest development version
 docker run --env-file .env adaclosure/acmw-backend:latest
 ```
 
-This application port `8080` , no graphical interface.
+3. `docker-compose.yml`
+
+```shell
+docker-compose up -d
+```
 
 ## Development Guidelines
 

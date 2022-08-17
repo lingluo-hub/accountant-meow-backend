@@ -6,7 +6,7 @@
 
 [![OSCS Status](https://www.oscs1024.com/platform/badge/lingluo-hub/accountant-meow-backend.svg?size=small)](https://www.oscs1024.com/project/lingluo-hub/accountant-meow-backend?ref=badge_small)
 [![Java CI with Maven](https://github.com/lingluo-hub/accountant-meow-backend/actions/workflows/maven.yml/badge.svg)](https://github.com/lingluo-hub/accountant-meow-backend/actions/workflows/maven.yml)
-![Spring Version](https://img.shields.io/badge/spring%20boot-2.7.0-green)
+![Spring Version](https://img.shields.io/badge/spring%20boot-2.7.2-green)
 [![codecov](https://codecov.io/gh/lingluo-hub/accountant-meow-backend/branch/main/graph/badge.svg?token=FgwEZXPtOM)](https://codecov.io/gh/lingluo-hub/accountant-meow-backend)
 
 中文 | [English](./README.md)
@@ -14,7 +14,7 @@
 ## 简介
 
 采用 Spring Boot + MyBatis 核心技术栈，为记账喵安卓 App 开发的服务端, 遵循 [RESTful API](https://restfulapi.net/) 开发。
-使用 smart-doc api接口文档生成器。
+使用 Swagger 接口文档。 
 
 ## 快速开始
 
@@ -24,6 +24,7 @@
   =11)
 - Maven (**可选** 可前往 https://maven.apache.org/ 获取最新版)
 - Docker (**可选** 可前往 https://www.docker.com/get-started/ 获取 对应操作系统的 Docker)
+- Docker Compose ( **可选** 可前往 https://docs.docker.com/compose/ 获取 Docker Compose)
 
 ### 环境变量说明
 
@@ -56,17 +57,9 @@ mvn -B package --file pom.xml -DskipTests
 
 在 `target` 下可看到 `.jar` 的文件生成。
 
-3. *(可选)* 生成 API 文档
-
-```shell
-./mvnw smart-doc:html
-```
-
-将在 `src/main/resources/static/doc` 下生成 html 文档站点。运行后可通过 `http://localhost/doc/api.html` 查看。
-
-详细请查看 [smart-doc](https://smart-doc-group.github.io/) .
-
 ### 运行
+
+[运行后查看接口文档](http://localhost:8080/swagger-ui/index.html#/)。
 
 1. Java 环境运行
 
@@ -89,6 +82,7 @@ mvn -B package --file pom.xml -DskipTests
   REDIS_URL=<Redis数据库地址, 默认:localhost>
   REDIS_PORT=<Redis数据库端口, 默认:6379>
   ```
+> 本库自带的 `.env` 文件为配合 `docker-compose.yml` 使用。
 
 然后运行:
 
@@ -104,7 +98,11 @@ mvn -B package --file pom.xml -DskipTests
   docker run --env-file .env adaclosure/acmw-backend:latest
   ```
 
-本应用端口 `8080`，无图形化界面。
+3. `docker-compose.yml`
+
+```shell
+docker-compose up -d
+```
 
 ## 开发指引
 
