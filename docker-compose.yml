@@ -2,7 +2,7 @@ version: '3'
 services:
   backend:
     build: .
-#    image: accountant-meow-backend_backend
+#    image: adaclosure/acmw-backend
     ports:
       - "8080:8080"
     links:
