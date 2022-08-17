@@ -89,7 +89,7 @@ mvn -B package --file pom.xml -DskipTests
 最新发行版
 
   ```shell
-  docker run --env-file .env adaclosure/acmw-backend:1.4.2
+  docker run --env-file .env adaclosure/acmw-backend:1.4.3
   ```
 
 最新开发版

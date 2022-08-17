@@ -87,7 +87,7 @@ Then run:
 latest release
 
 ```shell
-docker run --env-file .env adaclosure/acmw-backend:1.4.2
+docker run --env-file .env adaclosure/acmw-backend:1.4.3
 ```
 
 Latest development version
