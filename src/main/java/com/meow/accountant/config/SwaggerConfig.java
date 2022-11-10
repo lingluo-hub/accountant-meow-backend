@@ -51,8 +51,8 @@ public class SwaggerConfig {
      */
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("Accountant Meow API")
-                .description("记账喵 api 文档")
+                .title("Accountant Meow next API")
+                .description("记账喵-下世代 api 文档")
                 .contact(new Contact("lingluo", "https://blog.lingluoyun.com", "lingluo@lingluoyun.com"))
                 .version("1.0")
                 .build();
