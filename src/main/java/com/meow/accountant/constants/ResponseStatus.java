@@ -7,6 +7,7 @@ import java.util.List;
 
 /**
  * @author 凌洛
+ * @Description 响应码列表
  */
 @Getter
 @AllArgsConstructor

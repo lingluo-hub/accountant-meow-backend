@@ -2,7 +2,7 @@ version: '3'
 services:
   backend:
     build: .
-#    image: adaclosure/acmw-backend
+#    image: adaclosure/acmw-backend-next
     ports:
       - "8080:8080"
     links:
