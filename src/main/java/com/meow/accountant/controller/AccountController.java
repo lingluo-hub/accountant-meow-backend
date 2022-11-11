@@ -46,7 +46,7 @@ public class AccountController {
                                                    @RequestParam(value = "money-0", required = false) Double money_0,
                                                    @RequestParam(value = "money-1", required = false) Double money_1,
                                                    @RequestParam(value = "beizhu-op", required = false) String beizhu,
-                                                   @RequestParam String userid) {
+                                                   @RequestParam(value = "userid") String userid) {
         Map<String, Object> params = MapUtils.builder()
                 .field(Accounttb::getUserid, userid)
                 .field(Accounttb::getYear, year)
@@ -67,7 +67,7 @@ public class AccountController {
     public ResponseResult<String> account(Accounttb accounttb) {
         if (accounttbService.exists(accounttb.getId())) {
             accounttbService.updateAccount(accounttb);
-            logger.info("更新记录: " + accounttb.getUserid());
+            logger.info("更新记录: " + accounttb.getId());
             return ResponseResult.success("update succeed!");
         }
         accounttbService.addAccount(accounttb);
