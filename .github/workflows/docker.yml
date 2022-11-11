@@ -24,4 +24,4 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: adaclosure/acmw-backend-next:latest
+          tags: adaclosure/acmw-backend-next:2.0.0

@@ -1,12 +1,11 @@
 <div align="center"> <img src="https://user-images.githubusercontent.com/25563773/171997432-ff332de2-f85d-44e2-87d1-67247f73df9a.png" width="15%">
 </div>
 <h2 align="center">Accountant Meow Backend</h2>
-<p align="center">Accountant Meow Backend</p>
+<p align="center">Accountant Meow Backend Next</p>
 
 [![OSCS Status](https://www.oscs1024.com/platform/badge/lingluo-hub/accountant-meow-backend.svg?size=small)](https://www.oscs1024.com/project/lingluo-hub/accountant-meow-backend?ref=badge_small)
 [![Java CI with Maven](https://github.com/lingluo-hub/accountant-meow-backend/actions/workflows/maven.yml/badge.svg)](https://github.com/lingluo-hub/accountant-meow-backend/actions/workflows/maven.yml)
 ![Spring Version](https://img.shields.io/badge/spring%20boot-2.7.5-green)
-[![codecov](https://codecov.io/gh/lingluo-hub/accountant-meow-backend/branch/main/graph/badge.svg?token=FgwEZXPtOM)](https://codecov.io/gh/lingluo-hub/accountant-meow-backend)
 
 [中文](./README.cn.md) | English
 
@@ -83,7 +82,7 @@ Then run:
 latest release
 
 ```shell
-docker run --env-file .env adaclosure/acmw-backend:1.4.3
+docker run --env-file .env adaclosure/acmw-backend:2.0.0
 ```
 
 Latest development version

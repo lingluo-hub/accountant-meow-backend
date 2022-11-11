@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.meow.accountant</groupId>
     <artifactId>accountant-meow-backend</artifactId>
-    <version>1.4.3</version>
+    <version>2.0.0</version>
     <name>accountant-meow-backend</name>
     <description>accountant-meow-backend</description>
     <properties>
