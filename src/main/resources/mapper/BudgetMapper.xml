@@ -4,10 +4,16 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.meow.accountant.mapper.BudgetMapper">
 
+    <cache
+            eviction="FIFO"
+            flushInterval="60000"
+            size="512"
+            readOnly="true"/>
+
     <resultMap id="BaseResultMap" type="com.meow.accountant.entity.Budget">
-            <id property="userid" column="userid" jdbcType="VARCHAR"/>
-            <result property="budget" column="budget" jdbcType="DOUBLE"/>
-            <result property="timest" column="timest" jdbcType="TIMESTAMP"/>
+        <id property="userid" column="userid" jdbcType="VARCHAR"/>
+        <result property="budget" column="budget" jdbcType="DOUBLE"/>
+        <result property="timest" column="timest" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <sql id="Base_Column_List">
