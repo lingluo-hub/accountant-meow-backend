@@ -14,7 +14,8 @@
 ## 简介
 
 采用 Spring Boot + MyBatis 核心技术栈，为记账喵安卓 App 开发的服务端, 遵循 [RESTful API](https://restfulapi.net/) 开发。
-使用 Swagger 接口文档。 
+使用 Swagger 接口文档。
+采用 [Bean Searcher](https://bs.zhxu.cn/) 作为查询的工具。
 
 ## 快速开始
 
@@ -36,8 +37,6 @@
 | DB_USER_NAME | PostgreSQL数据库用户名, 默认:postgres |
 | DB_USER_PSWD | PostgreSQL数据库用户密码             |
 | DB_PORT      | PostgreSQL数据库端口, 默认:5432      |
-| REDIS_URL    | Redis数据库地址, 默认:localhost      |
-| REDIS_PORT   | Redis数据库端口, 默认:6379           |
 
 ### 构建
 
@@ -79,8 +78,6 @@ mvn -B package --file pom.xml -DskipTests
   DB_USER_NAME=<PostgreSQL数据库用户名>
   DB_USER_PSWD=<PostgreSQL数据库用户密码>
   DB_PORT=<PostgreSQL数据库端口, 默认:5432>
-  REDIS_URL=<Redis数据库地址, 默认:localhost>
-  REDIS_PORT=<Redis数据库端口, 默认:6379>
   ```
 > 本库自带的 `.env` 文件为配合 `docker-compose.yml` 使用。
 
@@ -113,7 +110,6 @@ docker-compose up -d
 - Maven (可前往 https://maven.apache.org/ 获取最新版)
 - Docker (**可选** 可前往 https://www.docker.com/get-started/ 获取 对应操作系统的 Docker)
 - PostgreSQL (本项目使用的后端数据库，开放端口 5432)
-- Redis (本项目使用的缓存数据库，开放端口 6379)
 - IntelliJ IDEA (颇受欢迎的 Java 开发 IDE)
 
 ### 数据库初始化
@@ -130,12 +126,6 @@ docker run \
   -d postgres
 ```
 
-```shell
-docker run --name redis -p 6379:6379 -d redis redis-server --appendonly yes
-```
-
 docker 启动时已完成创建数据库 `accountant_meow`, 本项目自带的 [flyway](https://flywaydb.org/) 会在启动时自动初始化此数据库、建表及插入示例数据。
 配置文件位置: `src/main/resources/db/migration/V1.0__Init_DB.sql`
 和 `src/main/resources/db/migration/V1.1__Init_Data.sql`
-
-接口文档：[APIfox 在线文档](https://www.apifox.cn/apidoc/shared-ea01e1d8-803d-4828-988e-540fd0a572e9)

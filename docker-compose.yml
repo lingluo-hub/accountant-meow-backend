@@ -7,10 +7,8 @@ services:
       - "8080:8080"
     links:
       - db
-      - redis
     depends_on:
       - db
-      - redis
     env_file:
       - .env
   db:
@@ -21,8 +19,3 @@ services:
     environment:
       POSTGRES_PASSWORD: 123456
       POSTGRES_DB: accountant_meow
-  redis:
-    image: redis
-    restart: always
-    ports:
-      - "6379:6379"

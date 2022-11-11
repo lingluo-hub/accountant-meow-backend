@@ -34,8 +34,6 @@ Use the Swagger API documentation.
 | DB_USER_NAME  | PostgreSQL database username, default:postgres |
 | DB_USER_PSWD  | PostgreSQL database user password              |
 | DB_PORT       | PostgreSQL database port, default:5432         |
-| REDIS_URL     | Redis database address, default:localhost      |
-| REDIS_PORT    | Redis database port, default:6379              |
 
 ### Build
 
@@ -76,8 +74,6 @@ DB_URL=<PostgreSQL database url, default:localhost>
 DB_USER_NAME=<PostgreSQL database username, default:postgres>
 DB_USER_PSWD=<PostgreSQL database user password>
 DB_PORT=<PostgreSQL database port, default:5432>
-REDIS_URL=<Redis database address, default:localhost>
-REDIS_PORT=<Redis database port, default:6379>
 ```
 
 > This repository comes with a `.env` file for use with `docker-compose.yml`.
@@ -110,7 +106,6 @@ docker-compose up -d
 - Maven (go to https://maven.apache.org/ to get the latest version)
 - Docker ( **optional** , go to https://www.docker.com/get-started/ to get the Docker for the corresponding operating system)
 - PostgreSQL (backend database used in this project, open port 5432)
-- Redis (cache database used in this project, open port 6379)
 - IntelliJ IDEA (popular IDE for Java development)
 
 ### Database initialization
@@ -127,10 +122,4 @@ docker run \
   -d postgres
 ```
 
-```shell
-docker run --name redis -p 6379:6379 -d redis redis-server --appendonly yes
-```
-
 When docker starts, the database `accountant_meow` has been created. The [flyway](https://flywaydb.org/) that comes with this project will automatically initialize the database, create tables and insert sample data at startup. Configuration file location: `src/main/resources/db/migration/V1.0__Init_DB.sql` and `src/main/resources/db/migration/V1.1__Init_Data.sql`
-
-Interface Documentation: [APIfox Online Documentation](https://www.apifox.cn/apidoc/shared-ea01e1d8-803d-4828-988e-540fd0a572e9)
