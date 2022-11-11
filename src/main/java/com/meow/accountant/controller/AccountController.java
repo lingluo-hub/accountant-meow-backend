@@ -7,11 +7,10 @@ import com.meow.accountant.entity.Accounttb;
 import com.meow.accountant.entity.response.ResponseResult;
 import com.meow.accountant.service.impl.AccounttbServiceImpl;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
@@ -32,8 +31,11 @@ public class AccountController {
         this.accounttbService = accounttbService;
     }
 
+    Logger logger = LogManager.getLogger("执行记账操作");
+
     /**
      * 全局检索，使用 BeanSearch 框架
+     *
      * @return List
      */
     @GetMapping("/index-account")
@@ -56,6 +58,7 @@ public class AccountController {
                 .orderBy(typename)
                 .page(page, size)
                 .build();
+        logger.info("全局查询记录: " + userid);
         return mapSearcher.search(Accounttb.class, params, new String[]{"money"});
     }
 
@@ -64,9 +67,11 @@ public class AccountController {
     public ResponseResult<String> account(Accounttb accounttb) {
         if (accounttbService.exists(accounttb.getId())) {
             accounttbService.updateAccount(accounttb);
+            logger.info("更新记录: " + accounttb.getUserid());
             return ResponseResult.success("update succeed!");
         }
         accounttbService.addAccount(accounttb);
+        logger.info("插入记录: " + accounttb.getUserid());
         return ResponseResult.success("insert succeed!");
     }
 
@@ -74,9 +79,11 @@ public class AccountController {
     @ApiOperation("删除记录")
     public ResponseResult<String> deleteAccount(@PathVariable Integer id) {
         if (!accounttbService.exists(id)) {
+            logger.info("删除不存在的记录: " + id);
             return ResponseResult.fail("no such records");
         }
         accounttbService.deleteAccount(id);
+        logger.info("删除记录: " + id);
         return ResponseResult.success("delete succeed!");
     }
 }
