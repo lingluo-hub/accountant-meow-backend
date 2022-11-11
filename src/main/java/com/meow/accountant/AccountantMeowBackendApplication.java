@@ -3,7 +3,6 @@ package com.meow.accountant;
 import com.ejlchina.searcher.dialect.PostgreSqlDialect;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 
 /**
@@ -11,7 +10,6 @@ import org.springframework.context.annotation.Bean;
  * @Description 记账喵-您身边的会计师，后端Spring Boot项目
  */
 @SpringBootApplication
-@EnableCaching
 public class AccountantMeowBackendApplication {
 
     public static void main(String[] args) {
